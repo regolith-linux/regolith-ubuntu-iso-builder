@@ -20,4 +20,5 @@ jobs:
           ./build.sh -
 
       - name: Debug
-        run: find .
+        run: |
+          ls -hl scripts/
