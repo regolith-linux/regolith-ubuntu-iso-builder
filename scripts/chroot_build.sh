@@ -55,6 +55,17 @@ function check_host() {
 function setup_host() {
     echo "=====> running setup_host ..."
 
+   cat <<EOF > /etc/apt/sources.list
+deb http://us.archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse
+
+deb http://us.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
+
+deb http://us.archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse
+EOF
+
     echo "ubuntu-fs-live" > /etc/hostname
 
     # we need to install systemd first, to configure machine id
@@ -69,6 +80,19 @@ function setup_host() {
     dpkg-divert --local --rename --add /sbin/initctl
     ln -s /bin/true /sbin/initctl
 }
+
+# Load configuration values from file
+function load_config() {
+    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then 
+        . "$SCRIPT_DIR/config.sh"
+    elif [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
+        . "$SCRIPT_DIR/default_config.sh"
+    else
+        >&2 echo "Unable to find default config file  $SCRIPT_DIR/default_config.sh, aborting."
+        exit 1
+    fi
+}
+
 
 function install_pkg() {
     echo "=====> running install_pkg ... will take a long time ..."
@@ -99,31 +123,8 @@ function install_pkg() {
     ubiquity-slideshow-ubuntu \
     ubiquity-ubuntu-artwork
 
-    # install graphics and desktop
-    apt-get install -y \
-    plymouth-theme-ubuntu-logo \
-    ubuntu-gnome-desktop \
-    ubuntu-gnome-wallpapers
-
-    # useful tools
-    apt-get install -y \
-    clamav-daemon \
-    terminator \
-    apt-transport-https \
-    curl \
-    vim \
-    nano \
-    less
-
-    # purge
-    apt-get purge -y \
-    transmission-gtk \
-    transmission-common \
-    gnome-mahjongg \
-    gnome-mines \
-    gnome-sudoku \
-    aisleriot \
-    hitori
+    # Call into config function
+    customize_image
 
     # remove unused and clean up apt cache
     apt-get autoremove -y
@@ -142,6 +143,7 @@ dns=dnsmasq
 [ifupdown]
 managed=false
 EOF
+
     dpkg-reconfigure network-manager
 
     apt-get clean -y
@@ -162,6 +164,7 @@ function finish_up() {
 
 # =============   main  ================
 
+load_config
 check_host
 
 # check number of args

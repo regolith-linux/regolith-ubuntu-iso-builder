@@ -14,7 +14,7 @@ DATE=`TZ="UTC" date +"%y%m%d-%H%M%S"`
 function help() {
     # if $1 is set, use $1 as headline message in help()
     if [ -z ${1+x} ]; then
-        echo -e "This script builds bootable ubuntu ISO image"
+        echo -e "This script builds a bootable ubuntu ISO image"
         echo -e
     else
         echo -e $1
@@ -61,14 +61,37 @@ function chroot_exit_teardown() {
 }
 
 function check_host() {
-    local os_ver;
-    os_ver=`lsb_release -d | grep "Ubuntu 20.04"`
-    if [[ $os_ver == "" ]]; then
-        echo "WARNING : OS is not Ubuntu 20.04 and is untested"
+    local os_ver
+    os_ver=`lsb_release -i | grep -E "(Ubuntu|Debian)"`
+    if [[ -z "$os_ver" ]]; then
+        echo "WARNING : OS is not Debian or Ubuntu and is untested"
     fi
 
     if [ $(id -u) -eq 0 ]; then
         echo "This script should not be run as 'root'"
+        exit 1
+    fi
+}
+
+# Load configuration values from file
+function load_config() {
+    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then 
+        . "$SCRIPT_DIR/config.sh"
+    elif [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
+        . "$SCRIPT_DIR/default_config.sh"
+    else
+        >&2 echo "Unable to find default config file  $SCRIPT_DIR/default_config.sh, aborting."
+        exit 1
+    fi
+}
+
+# Verify that necessary configuration values are set and they are valid
+function check_config() {
+    local expected_config_version
+    expected_config_version="0.1"
+
+    if [[ "$CONFIG_FILE_VERSION" != "$expected_config_version" ]]; then
+        >&2 echo "Invalid or old config version $CONFIG_FILE_VERSION, expected $expected_config_version. Please update your configuration file from the default."
         exit 1
     fi
 }
@@ -90,14 +113,25 @@ function run_chroot() {
 
     chroot_enter_setup
 
+    # Setup build scripts in chroot environment
     sudo ln -f $SCRIPT_DIR/chroot_build.sh chroot/root/chroot_build.sh
-    sudo cp -f /etc/apt/sources.list chroot/etc/apt/
+    sudo ln -f $SCRIPT_DIR/default_config.sh chroot/root/default_config.sh
+    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then
+        sudo ln -f $SCRIPT_DIR/config.sh chroot/root/config.sh
+    fi    
+
+    # Launch into chroot environment to build install image.
     sudo chroot chroot /root/chroot_build.sh -
+
+    # Cleanup after image changes
     sudo rm -f chroot/root/chroot_build.sh
+    sudo rm -f chroot/root/default_config.sh
+    if [[ -f "chroot/root/config.sh" ]]; then
+        sudo rm -f chroot/root/config.sh
+    fi
 
     chroot_exit_teardown
 }
-
 
 function build_iso() {
     echo "=====> running build_iso ..."
@@ -127,12 +161,12 @@ insmod all_video
 set default="0"
 set timeout=30
 
-menuentry "Try Ubuntu FS without installing" {
+menuentry "${GRUB_LIVEBOOT_LABEL}" {
    linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
    initrd /casper/initrd
 }
 
-menuentry "Install Ubuntu FS" {
+menuentry "${GRUB_INSTALL_LABEL}" {
    linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
    initrd /casper/initrd
 }
@@ -165,12 +199,20 @@ EOF
     sudo sed -i '/os-prober/d' image/casper/filesystem.manifest-desktop
 
     # compress rootfs
-    sudo mksquashfs chroot image/casper/filesystem.squashfs
+    sudo mksquashfs chroot image/casper/filesystem.squashfs \
+        -noappend -no-duplicates -no-recovery \
+        -wildcards \
+        -e "var/cache/apt/archives/*" \
+        -e "root/*" \
+        -e "root/.*" \
+        -e "tmp/*" \
+        -e "tmp/.*" \
+        -e "swapfile"
     printf $(sudo du -sx --block-size=1 chroot | cut -f1) > image/casper/filesystem.size
 
     # create diskdefines
     cat <<EOF > image/README.diskdefines
-#define DISKNAME  Ubuntu from scratch
+#define DISKNAME  ${GRUB_LIVEBOOT_LABEL}
 #define TYPE  binary
 #define TYPEbinary  1
 #define ARCH  amd64
@@ -243,6 +285,8 @@ EOF
 # we always stay in $SCRIPT_DIR
 cd $SCRIPT_DIR
 
+load_config
+check_config
 check_host
 
 # check number of args
