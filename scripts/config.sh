@@ -34,6 +34,7 @@ function customize_image() {
         file-roller \
         gnome-font-viewer \
         gnome-screenshot \
+        gnome-terminal \
         htop \
         i3xrocks-cpu-usage \
         i3xrocks-memory \
@@ -43,6 +44,7 @@ function customize_image() {
         libmutter-6-0 \
         lightdm \
         lightdm-gtk-greeter \
+        memtest86+ \
         nano \
         nautilus \
         neofetch \
