@@ -22,7 +22,7 @@ function customize_image() {
 
     add-apt-repository -y ppa:regolith-linux/unstable
 
-    apt install --no-install-recommends \
+    apt install -y --no-install-recommends \
         alsa-base \
         lightdm \
         lightdm-gtk-greeter \
