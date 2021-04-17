@@ -18,121 +18,58 @@ export GRUB_INSTALL_LABEL="Install Regolith"
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
-        # install graphics and desktop
-    apt-get install -y \
-    plymouth-theme-ubuntu-logo \
-    ubuntu-desktop \
-    ubuntu-gnome-wallpapers
-
-    # useful tools
-    apt-get install -y \
-    clamav-daemon \
-    terminator \
-    apt-transport-https \
-    curl \
-    vim \
-    nano \
-    less
-
-    # purge
-    apt-get purge -y \
-    transmission-gtk \
-    transmission-common \
-    gnome-mahjongg \
-    gnome-mines \
-    gnome-sudoku \
-    aisleriot \
-    hitori
-}
-
-function broken() {
+    # Install script to install PPA
     apt install -y software-properties-common
 
+    # Regolith PPA
     add-apt-repository -y ppa:regolith-linux/unstable
 
+    # Base system for Regolith on Ubuntu
     apt install -y --no-install-recommends \
         alsa-base \
-        lightdm \
-        lightdm-gtk-greeter \
-        nautilus \
-        regolith-lightdm-config \
-        ubiquity-frontend-gtk \
-        ubiquity-slideshow-regolith \
-        ubiquity \
+        apt-transport-https \
+        curl \
         eog \
         evince \
         file-roller \
-        gedit \
         gnome-font-viewer \
+        gnome-screenshot \
         htop \
-        neofetch \
-        vim \
-        regolith-system \
         i3xrocks-cpu-usage \
         i3xrocks-memory \
         i3xrocks-net-traffic \
         i3xrocks-time \
-        libmutter-6-0 \
-        apt-transport-https \
-        curl \
-        vim \
-        nano \
         less \
-        gnome-screenshot
+        libmutter-6-0 \
+        lightdm \
+        lightdm-gtk-greeter \
+        nano \
+        nautilus \
+        neofetch \
+        regolith-lightdm-config \
+        regolith-system \
+        ubiquity \
+        ubiquity-frontend-gtk \
+        ubiquity-slideshow-regolith \
+        vim
 
-    # purge
-    apt-get purge -y \
+    # purge packages installed by Ubuntu but uneeded in Regolith
+     apt-get purge -y \
         gdm3 \
         gnome-shell \
-        xfce4-appfinder \
-        xfce4-cpugraph-plugin \
-        xfce4-dict \
-        xfce4-indicator-plugin \
-        xfce4-mailwatch-plugin \
-        xfce4-netload-plugin \
-        xfce4-notes \
-        xfce4-notes-plugin \
-        xfce4-notifyd \
-        xfce4-panel \
-        xfce4-places-plugin \
-        xfce4-power-manager \
-        xfce4-power-manager-data \
-        xfce4-power-manager-plugins \
-        xfce4-pulseaudio-plugin \
-        xfce4-screenshooter \
-        xfce4-session \
-        xfce4-settings \
-        xfce4-statusnotifier-plugin \
-        xfce4-systemload-plugin \
-        xfce4-taskmanager \
-        xfce4-terminal \
-        xfce4-verve-plugin \
-        xfce4-weather-plugin \
-        xfce4-whiskermenu-plugin \
-        xfce4-xkb-plugin \
-        libxfce4panel-2.0-4 \
-        libxfce4ui-1-0 \
-        libxfce4ui-2-0 \
-        libxfce4ui-common \
-        libxfce4ui-utils \
-        libxfce4util-bin \
-        libxfce4util-common \
-        libxfce4util7 \
         plymouth-theme-ubuntu-logo \
         plymouth-theme-ubuntu-text \
         ubiquity-slideshow-ubuntu \
-        ubuntu-artwork \
-        ubuntu-community-wallpapers \
-        ubuntu-community-wallpapers-bionic \
-        ubuntu-core \
-        ubuntu-default-settings \
         ubuntu-desktop \
         ubuntu-docs \
-        ubuntu-icon-theme \
+        ubuntu-mono \
         ubuntu-live-settings \
+        ubuntu-session \
+        ubuntu-settings \
+        ubuntu-standard \
+        ubuntu-wallpapers-focal \
         ubuntu-wallpapers \
         snapd \
-        greybird-gtk-theme \
         libreoffice-base-core \
         libreoffice-calc \
         libreoffice-common \
@@ -140,36 +77,10 @@ function broken() {
         libreoffice-gnome \
         libreoffice-gtk3 \
         libreoffice-math \
+        libreoffice-style-breeze \
+        libreoffice-style-colibre \
         libreoffice-style-elementary \
-        libreoffice-style-galaxy \
         libreoffice-style-tango \
         libreoffice-writer \
-        mate-calc \
-        mate-calc-common \
-        mousepad \
-        numix-gtk-theme \
-        pidgin \
-        pidgin-data \
-        pidgin-libnotify \
-        pidgin-otr \
-        ristretto \
-        shimmer-themes \
-        thunar \
-        thunar-archive-plugin \
-        thunar-data \
-        thunar-media-tags-plugin \
-        thunar-volman \
-        thunderbird \
-        xfburn \
-        xfpanel-switch \
-        xfwm4 \
-        blueman \
-        mugshot \
-        atril \
-        catfish \
-        engrampa \
-        sgt-launcher \
-        sgt-puzzles \
-        gnome-sudoku \
-        xserver-xorg-input-synaptics
+        thunderbird 
 }
