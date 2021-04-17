@@ -63,7 +63,6 @@ function customize_image() {
         ubuntu-desktop \
         ubuntu-docs \
         ubuntu-mono \
-        ubuntu-live-settings \
         ubuntu-session \
         ubuntu-settings \
         ubuntu-standard \
