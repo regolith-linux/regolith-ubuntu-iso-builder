@@ -19,6 +19,14 @@ jobs:
           cd scripts
           ./build.sh -
 
-      - name: Debug
+      - name: List Build
         run: |
           ls -hl scripts/
+          mv scripts/ubuntu-from-scratch.iso scripts/regolith-linux-1.6.0.iso
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          files: |
+            scripts/regolith-linux-1.6.0.iso
