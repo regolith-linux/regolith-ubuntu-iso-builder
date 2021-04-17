@@ -18,7 +18,9 @@ export GRUB_INSTALL_LABEL="Install Regolith"
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
-    add-apt-repository ppa:regolith-linux/unstable
+    apt install -y software-properties-common
+
+    add-apt-repository -y ppa:regolith-linux/unstable
 
     apt install --no-install-recommends \
         alsa-base \
