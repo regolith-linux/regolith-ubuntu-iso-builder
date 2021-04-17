@@ -18,6 +18,34 @@ export GRUB_INSTALL_LABEL="Install Regolith"
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
+        # install graphics and desktop
+    apt-get install -y \
+    plymouth-theme-ubuntu-logo \
+    ubuntu-desktop \
+    ubuntu-gnome-wallpapers
+
+    # useful tools
+    apt-get install -y \
+    clamav-daemon \
+    terminator \
+    apt-transport-https \
+    curl \
+    vim \
+    nano \
+    less
+
+    # purge
+    apt-get purge -y \
+    transmission-gtk \
+    transmission-common \
+    gnome-mahjongg \
+    gnome-mines \
+    gnome-sudoku \
+    aisleriot \
+    hitori
+}
+
+function broken() {
     apt install -y software-properties-common
 
     add-apt-repository -y ppa:regolith-linux/unstable
