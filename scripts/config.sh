@@ -25,7 +25,7 @@ function customize_image() {
     add-apt-repository -y ppa:regolith-linux/unstable
 
     # Base system for Regolith on Ubuntu
-    apt install -y --no-install-recommends \
+    apt install -y \
         alsa-base \
         apt-transport-https \
         curl \
@@ -48,6 +48,7 @@ function customize_image() {
         nano \
         nautilus \
         neofetch \
+        plymouth-theme-regolith \
         regolith-lightdm-config \
         regolith-system \
         ubiquity \
