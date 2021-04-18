@@ -26,6 +26,7 @@ function customize_image() {
 
     # Base system for Regolith on Ubuntu
     apt install -y \
+        adwaita-icon-theme \
         alsa-base \
         apt-transport-https \
         curl \
@@ -61,8 +62,6 @@ function customize_image() {
         gdm3 \
         gnome-shell \
         plymouth-theme-ubuntu-logo \
-        plymouth-theme-ubuntu-text \
-        ubiquity-slideshow-ubuntu \
         ubuntu-desktop \
         ubuntu-docs \
         ubuntu-mono \
@@ -85,4 +84,6 @@ function customize_image() {
         libreoffice-style-tango \
         libreoffice-writer \
         thunderbird 
+
+    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure lightdm
 }
