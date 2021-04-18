@@ -130,8 +130,8 @@ function install_pkg() {
     apt-get autoremove -y
 
     # final touch
-    dpkg-reconfigure locales
-    dpkg-reconfigure resolvconf
+    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure resolvconf
 
     # network manager
     cat <<EOF > /etc/NetworkManager/NetworkManager.conf
@@ -144,7 +144,7 @@ dns=dnsmasq
 managed=false
 EOF
 
-    dpkg-reconfigure network-manager
+    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure network-manager
 
     apt-get clean -y
 }

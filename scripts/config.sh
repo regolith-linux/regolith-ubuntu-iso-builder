@@ -49,7 +49,6 @@ function customize_image() {
         nano \
         nautilus \
         neofetch \
-        plymouth-theme-regolith \
         regolith-lightdm-config \
         regolith-system \
         ubiquity \
