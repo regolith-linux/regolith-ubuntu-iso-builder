@@ -33,7 +33,7 @@ function customize_image() {
 
     echo "KGWH install --------------------- "
     # Base system for Regolith on Ubuntu
-    apt install -y \
+    apt install --no-install-recommends -y \
         alsa-base \
         anacron \
         apparmor \
@@ -66,7 +66,6 @@ function customize_image() {
         ghostscript-x \
         gir1.2-goa-1.0 \
         gir1.2-gtksource-4 \
-        gir1.2-snapd-1 \
         gir1.2-wnck-3.0 \
         gnome-accessibility-themes \
         gnome-font-viewer \
@@ -158,7 +157,6 @@ function customize_image() {
         liblouisutdml-data \
         liblouisutdml9 \
         libmspack0 \
-        libmutter-6-0 \
         libmysofa1 \
         libnetplan0 \
         libnorm1 \
@@ -269,7 +267,9 @@ function customize_image() {
         whiptail \
         xclip
 
-        apt-cache rdepends --installed evolution-data-server
+        echo "KGWH: rdepends gnome-shell ---------------"
+
+        apt-cache rdepends --installed gnome-shell
 
         apt purge -y ubuntu-session
 
