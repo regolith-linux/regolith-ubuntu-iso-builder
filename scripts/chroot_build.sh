@@ -68,6 +68,8 @@ EOF
 
     echo "ubuntu-fs-live" > /etc/hostname
 
+    export DEBIAN_FRONTEND=noninteractive
+
     # we need to install systemd first, to configure machine id
     apt-get update
     apt-get install -y libterm-readline-gnu-perl systemd-sysv
@@ -101,7 +103,6 @@ function install_pkg() {
     # install live linux packages
     apt-get install -y \
     sudo \
-    ubuntu-standard \
     casper \
     lupin-casper \
     discover \
@@ -127,7 +128,7 @@ function install_pkg() {
     customize_image
 
     # remove unused and clean up apt cache
-    apt-get autoremove -y
+    # apt-get autoremove -y
 
     # final touch
     DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
@@ -197,4 +198,3 @@ for ((ii=$start_index; ii<$end_index; ii++)); do
 done
 
 echo "$0 - Initial build is done!"
-
