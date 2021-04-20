@@ -128,7 +128,7 @@ function install_pkg() {
     customize_image
 
     # remove unused and clean up apt cache
-    # apt-get autoremove -y
+    apt-get autoremove -y
 
     # final touch
     DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales

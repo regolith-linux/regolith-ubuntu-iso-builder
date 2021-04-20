@@ -18,6 +18,16 @@ export GRUB_INSTALL_LABEL="Install Regolith"
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
+    echo "KGWH start ------------------ "
+
+    touch /etc/apt/preferences
+
+    cat <<EOF > /etc/apt/preferences
+Package: gnome-shell
+Pin: release *
+Pin-Priority: -1
+EOF
+
     # Install script to install PPA
     apt install -y software-properties-common
 
@@ -267,11 +277,7 @@ function customize_image() {
         whiptail \
         xclip
 
-        echo "KGWH: rdepends gnome-shell ---------------"
-
-        apt-cache rdepends --installed gnome-shell
-
-        apt purge -y ubuntu-session
+        
 
         echo "KGWH: customize complete ---------------"
 }
