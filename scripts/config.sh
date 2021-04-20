@@ -67,7 +67,6 @@ EOF
         firefox-locale-en \
         fonts-ubuntu \
         fonts-yrsa-rasa \
-        foomatic-db-compressed-ppds \
         friendly-recovery \
         fwupd \
         fwupd-signed \
@@ -87,8 +86,6 @@ EOF
         gstreamer1.0-tools \
         gtk2-engines-pixbuf \
         hdparm \
-        hplip \
-        hplip-data \
         htop \
         i3xrocks-cpu-usage \
         i3xrocks-memory \
@@ -110,104 +107,50 @@ EOF
         language-pack-gnome-en \
         language-pack-gnome-en-base \
         less \
-        libaacs0 \
         libamtk-5-0 \
         libamtk-5-common \
-        libaom0 \
         libappstream-glib8 \
-        libass9 \
-        libatm1 \
-        libavcodec58 \
-        libavfilter7 \
-        libavformat58 \
-        libavutil56 \
         libbabeltrace1 \
-        libbdplus0 \
-        libbluray2 \
-        libbs2b0 \
         libc6-dbg \
         libcairo-gobject-perl \
         libcairo-perl \
         libcbor0.6 \
         libcc1-0 \
-        libchromaprint1 \
         libcodec2-0.9 \
-        libcupsfilters1 \
         libdns-export1109 \
         libdw1 \
         libestr0 \
         libextutils-depends-perl \
         libextutils-pkgconfig-perl \
         libfastjson4 \
-        libfido2-1 \
-        libflite1 \
         libfontembed1 \
         libfwupd2 \
         libfwupdplugin1 \
-        libgcab-1.0-0 \
         libglib-object-introspection-perl \
         libglib-perl \
-        libgme0 \
-        libgsm1 \
         libgtk3-perl \
         libgtksourceview-4-0 \
         libgtksourceview-4-common \
-        libhpmud0 \
         libigdgmm11 \
-        libimagequant0 \
-        libindicator3-7 \
         libisc-export1105 \
         liblcms2-utils \
         liblightdm-gobject-1-0 \
-        liblilv-0-0 \
-        libllvm9 \
-        liblouis-data \
-        liblouis20 \
-        liblouisutdml-bin \
-        liblouisutdml-data \
-        liblouisutdml9 \
         libmspack0 \
-        libmysofa1 \
-        libnetplan0 \
         libnorm1 \
         libnuma1 \
-        libopenmpt0 \
         libpgm-5.2-0 \
-        libpoppler-cpp0v5 \
-        libpostproc55 \
-        libqpdf26 \
-        librubberband2 \
-        libsane-hpaio \
-        libserd-0-0 \
-        libshine3 \
         libsmbios-c2 \
         libsnappy1v5 \
-        libsord-0-0 \
-        libsratom-0-0 \
         libssh-gcrypt-4 \
-        libswresample3 \
-        libswscale5 \
         libtepl-4-0 \
         libtext-charwidth-perl \
         libtext-wrapi18n-perl \
-        libtss2-esys0 \
-        libtumbler-1-0 \
         libutempter0 \
         libva-drm2 \
         libva-x11-2 \
         libva2 \
-        libvdpau1 \
-        libvidstab1.1 \
-        libwnck-3-0 \
-        libwnck-3-common \
-        libx264-155 \
-        libx265-179 \
         libxdg-basedir1 \
-        libxmlb1 \
-        libxmlsec1 \
-        libxmlsec1-openssl \
         libxres1 \
-        libxvidcore4 \
         libzmq5 \
         lightdm \
         lightdm-gtk-greeter \
@@ -276,8 +219,6 @@ EOF
         wamerican \
         whiptail \
         xclip
-
-        
 
         echo "KGWH: customize complete ---------------"
 }
