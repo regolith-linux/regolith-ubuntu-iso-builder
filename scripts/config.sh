@@ -55,6 +55,7 @@ EOF
         avahi-autoipd \
         bash-completion \
         bind9-dnsutils \
+        build-essential \
         command-not-found \
         curl \
         debconf-i18n \
@@ -167,13 +168,12 @@ EOF
         nautilus \
         neofetch \
         netcat-openbsd \
-        openprinting-ppds \
         openssh-client \
-        p7zip \
         p7zip-full \
-        patch \
         pinentry-gtk2 \
         pkg-config \
+        plymouth-themes \
+        plymouth-theme-regolith \
         poppler-utils \
         powermgmt-base \
         python3-commandnotfound \
@@ -219,6 +219,9 @@ EOF
         wamerican \
         whiptail \
         xclip
+
+        # Set wallpaper for installer.  JPG -> PNG is intentional.
+        cp /usr/share/backgrounds/lucas-bellator-C0OD8OM-oM0-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
 
         echo "KGWH: customize complete ---------------"
 }
