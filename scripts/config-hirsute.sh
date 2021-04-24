@@ -47,7 +47,7 @@ EOF
     apt-get autoremove -y
 
     # echo "KGWH debug --------------------- "
-    # apt-cache rdepends --installed jetty
+    apt-cache rdepends --installed jetty
 
     echo "KGWH install --------------------- "
     # Base system for Regolith on Ubuntu
@@ -80,7 +80,6 @@ EOF
         fwupd-signed \
         gedit \
         gedit-common \
-        ghostscript-x \
         gir1.2-goa-1.0 \
         gir1.2-wnck-3.0 \
         gnome-accessibility-themes \
@@ -118,13 +117,8 @@ EOF
         libc6-dbg \
         libcairo-gobject-perl \
         libcairo-perl \
-        libcc1-0 \
-        libdw1 \
-        libestr0 \
         libextutils-depends-perl \
         libextutils-pkgconfig-perl \
-        libfastjson4 \
-        libfontembed1 \
         libfwupd2 \
         libglib-object-introspection-perl \
         libglib-perl \
