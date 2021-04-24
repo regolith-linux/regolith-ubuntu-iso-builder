@@ -100,7 +100,10 @@ function install_pkg() {
     echo "=====> running install_pkg ... will take a long time ..."
     apt-get -y upgrade
 
-    # install live packages
+    echo "KGWH - baseline packages"
+    apt list --installed
+
+    echo "KGWH - installer packages"
     apt-get install -y \
     sudo \
     casper \
@@ -120,11 +123,10 @@ function install_pkg() {
 
     # graphic installer - ubiquity
     apt-get install -y \
+    metacity \
     ubiquity \
     ubiquity-casper \
-    ubiquity-frontend-gtk \
-    ubiquity-slideshow-ubuntu \
-    ubiquity-ubuntu-artwork
+    ubiquity-frontend-gtk
 
     # Call into config function
     customize_image
@@ -133,8 +135,8 @@ function install_pkg() {
     apt-get autoremove -y
 
     # final touch
-    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
-    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure resolvconf
+    dpkg-reconfigure locales
+    dpkg-reconfigure resolvconf
 
     # network manager
     cat <<EOF > /etc/NetworkManager/NetworkManager.conf
@@ -147,7 +149,7 @@ dns=dnsmasq
 managed=false
 EOF
 
-    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure network-manager
+    dpkg-reconfigure network-manager
 
     apt-get clean -y
 }
@@ -199,4 +201,4 @@ for ((ii=$start_index; ii<$end_index; ii++)); do
     ${CMD[ii]}
 done
 
-echo "$0 - Initial build is done!"
+echo "$0 - chroot build is done!"
