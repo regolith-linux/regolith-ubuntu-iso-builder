@@ -134,7 +134,6 @@ EOF
         libmspack0 \
         libnorm1 \
         libnuma1 \
-        libpgm-5.2-0 \
         libsmbios-c2 \
         libsnappy1v5 \
         libssh-gcrypt-4 \
