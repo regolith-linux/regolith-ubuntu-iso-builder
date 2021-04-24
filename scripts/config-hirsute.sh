@@ -194,7 +194,6 @@ EOF
         ubuntu-release-upgrader-core \
         ubuntu-release-upgrader-gtk \
         ubuntu-standard \
-        ubuntu-system-service \
         ufw \
         update-manager \
         update-manager-core \
