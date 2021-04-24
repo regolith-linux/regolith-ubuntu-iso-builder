@@ -1,4 +1,4 @@
-name: build-focal
+name: build-bionic
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
 
     steps:
       - uses: actions/checkout@v2
@@ -17,13 +17,13 @@ jobs:
       - name: Build ISO
         run: |
           cd scripts
-          cp config-focal.sh config.sh
+          cp config-bionic.sh config.sh
           ./build.sh -
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: true
-          automatic_release_tag: "latest-focal"
+          automatic_release_tag: "latest-bionic"
           files: |
-            scripts/regolith-linux-focal-1.6.0.iso
+            scripts/regolith-linux-bionic-1.6.0.iso
