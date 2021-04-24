@@ -3,8 +3,12 @@ name: build-hirsute
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'scripts/config-hirsute.sh'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'scripts/config-hirsute.sh'
   workflow_dispatch:
 
 jobs:

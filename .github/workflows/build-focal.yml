@@ -3,8 +3,12 @@ name: build-focal
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'scripts/config-focal.sh'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'scripts/config-focal.sh'
   workflow_dispatch:
 
 jobs:

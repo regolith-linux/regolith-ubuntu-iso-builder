@@ -3,8 +3,12 @@ name: build-bionic
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'scripts/config-bionic.sh'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'scripts/config-bionic.sh'
   workflow_dispatch:
 
 jobs:
