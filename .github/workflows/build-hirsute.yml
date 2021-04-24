@@ -24,6 +24,6 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: true
-          automatic_release_tag: "latest-hirsute"
+          automatic_release_tag: "regolith-linux-hirsute-latest"
           files: |
             scripts/regolith-linux-hirsute-1.6.0.iso

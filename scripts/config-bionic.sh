@@ -62,7 +62,6 @@ EOF
         apt-utils \
         avahi-autoipd \
         bash-completion \
-        bind9-dnsutils \
         build-essential \
         command-not-found \
         curl \
@@ -83,7 +82,6 @@ EOF
         gedit-common \
         ghostscript-x \
         gir1.2-goa-1.0 \
-        gir1.2-gtksource-4 \
         gir1.2-wnck-3.0 \
         gnome-accessibility-themes \
         gnome-font-viewer \
@@ -104,7 +102,6 @@ EOF
         info \
         init \
         install-info \
-        intel-media-va-driver \
         iproute2 \
         iputils-ping \
         iputils-tracepath \
@@ -116,17 +113,12 @@ EOF
         language-pack-gnome-en \
         language-pack-gnome-en-base \
         less \
-        libamtk-5-0 \
-        libamtk-5-common \
         libappstream-glib8 \
         libbabeltrace1 \
         libc6-dbg \
         libcairo-gobject-perl \
         libcairo-perl \
-        libcbor0.6 \
         libcc1-0 \
-        libcodec2-0.9 \
-        libdns-export1109 \
         libdw1 \
         libestr0 \
         libextutils-depends-perl \
@@ -134,14 +126,9 @@ EOF
         libfastjson4 \
         libfontembed1 \
         libfwupd2 \
-        libfwupdplugin1 \
         libglib-object-introspection-perl \
         libglib-perl \
         libgtk3-perl \
-        libgtksourceview-4-0 \
-        libgtksourceview-4-common \
-        libigdgmm11 \
-        libisc-export1105 \
         liblcms2-utils \
         liblightdm-gobject-1-0 \
         libmspack0 \
@@ -151,7 +138,6 @@ EOF
         libsmbios-c2 \
         libsnappy1v5 \
         libssh-gcrypt-4 \
-        libtepl-4-0 \
         libtext-charwidth-perl \
         libtext-wrapi18n-perl \
         libutempter0 \
@@ -210,7 +196,6 @@ EOF
         strace \
         tcpdump \
         time \
-        tpm-udev \
         ubiquity-slideshow-regolith \
         ubuntu-minimal \
         ubuntu-release-upgrader-core \
