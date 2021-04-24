@@ -47,7 +47,7 @@ EOF
     apt-get autoremove -y
 
     # echo "KGWH debug --------------------- "
-    apt-cache rdepends --installed jetty
+    # apt-cache rdepends --installed jetty
 
     echo "KGWH install --------------------- "
     # Base system for Regolith on Ubuntu
