@@ -5,10 +5,14 @@ on:
     branches: [ master ]
     paths:
       - 'scripts/config-focal.sh'
+      - 'scripts/chroot_build.sh'
+      - 'scripts/build.sh'
   pull_request:
     branches: [ master ]
     paths:
       - 'scripts/config-focal.sh'
+      - 'scripts/chroot_build.sh'
+      - 'scripts/build.sh'
   workflow_dispatch:
 
 jobs:
