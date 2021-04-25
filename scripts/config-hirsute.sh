@@ -34,6 +34,7 @@ export TARGET_PACKAGE_REMOVE="
     gdm3 \
     ubuntu-session \
     ubuntu-desktop \
+    budgie-core \
 "
 
 # Package customisation function.  Update this function to customize packages
