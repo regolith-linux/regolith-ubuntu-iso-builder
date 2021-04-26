@@ -74,10 +74,16 @@ function customize_image() {
         gdm3 \
         gnome-shell \
         ubiquity-slideshow-ubuntu \
-        ubuntu-session
+        ubuntu-session \
+        ubuntu-standard \
+        ubiquity-slideshow-ubuntu \
+        ubiquity-ubuntu-artwork
 
     # Set wallpaper for installer.  JPG -> PNG is intentional.
     cp /usr/share/backgrounds/lucas-bellator-C0OD8OM-oM0-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
+
+    # Specify Regolith session for autologin
+    echo "user-session=regolith" >> /etc/lightdm/lightdm.conf
 
     echo "Regolith: customize end ------------------"
 }
