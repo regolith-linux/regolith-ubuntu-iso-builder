@@ -68,8 +68,6 @@ EOF
 
     echo "$TARGET_NAME" > /etc/hostname
 
-    export DEBIAN_FRONTEND=noninteractive
-
     # we need to install systemd first, to configure machine id
     apt-get update
     apt-get install -y libterm-readline-gnu-perl systemd-sysv
@@ -100,12 +98,10 @@ function install_pkg() {
     echo "=====> running install_pkg ... will take a long time ..."
     apt-get -y upgrade
 
-    echo "KGWH - baseline packages"
-    apt list --installed
-
-    echo "KGWH - installer packages"
+    # install live packages
     apt-get install -y \
     sudo \
+    ubuntu-standard \
     casper \
     lupin-casper \
     discover \
@@ -123,10 +119,11 @@ function install_pkg() {
 
     # graphic installer - ubiquity
     apt-get install -y \
-    metacity \
     ubiquity \
     ubiquity-casper \
-    ubiquity-frontend-gtk
+    ubiquity-frontend-gtk \
+    ubiquity-slideshow-ubuntu \
+    ubiquity-ubuntu-artwork
 
     # Call into config function
     customize_image
@@ -201,4 +198,5 @@ for ((ii=$start_index; ii<$end_index; ii++)); do
     ${CMD[ii]}
 done
 
-echo "$0 - chroot build is done!"
+echo "$0 - Initial build is done!"
+
