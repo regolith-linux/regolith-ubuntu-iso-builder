@@ -34,12 +34,13 @@ export TARGET_PACKAGE_REMOVE="
     gdm3 \
     ubuntu-session \
     ubuntu-desktop \
+    budgie-core \
 "
 
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
-    echo "Regolith: customize start ------------------"
+    echo "Regolith: start ------------------"
     
     # General system requirements
     apt install -y \
@@ -61,7 +62,9 @@ function customize_image() {
         regolith-lightdm-config \
         regolith-system \
         software-properties-gtk \
-        ubiquity-slideshow-regolith
+        ubiquity-slideshow-regolith \
+        ubuntu-release-upgrader-gtk \
+        update-notifier
 
     # Due to some unknown contention these must be removed before gnome-shell
     apt-get purge -y \
@@ -72,13 +75,18 @@ function customize_image() {
     apt-get purge -y \
         gdm3 \
         gnome-shell \
+        ubuntu-session \
         ubiquity-slideshow-ubuntu \
-        ubuntu-session
+        ubiquity-ubuntu-artwork
 
     # Set wallpaper for installer.  JPG -> PNG is intentional.
     cp /usr/share/backgrounds/lucas-bellator-C0OD8OM-oM0-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
 
-    echo "Regolith: customize end ------------------"
+    # Specify Regolith session for autologin
+    echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
+    echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
+
+    echo "Regolith: end ------------------"
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
