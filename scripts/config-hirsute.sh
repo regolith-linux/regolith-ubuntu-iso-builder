@@ -72,7 +72,7 @@ function customize_image() {
         plymouth-theme-ubuntu-text
 
     # Remove desktop components unneeded by Regolith
-    apt-get purge -y \
+    apt-get -o Debug::pkgProblemResolver=true purge -y \
         gdm3 \
         gnome-shell \
         ubuntu-session \
