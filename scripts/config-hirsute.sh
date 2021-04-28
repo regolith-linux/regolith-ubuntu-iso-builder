@@ -72,6 +72,7 @@ function customize_image() {
     # Due to some unknown contention these must be removed before gnome-shell
     apt-get -o Debug::pkgProblemResolver=true purge -y \
         plymouth-theme-ubuntu-text \
+        plymouth-theme-spinner \
         gnome-remote-desktop
 
     # Remove desktop components unneeded by Regolith
