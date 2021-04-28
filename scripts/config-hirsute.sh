@@ -35,6 +35,7 @@ export TARGET_PACKAGE_REMOVE="
     ubuntu-session \
     ubuntu-desktop \
     budgie-core \
+    metacity \
 "
 
 # Package customisation function.  Update this function to customize packages
@@ -53,10 +54,12 @@ function customize_image() {
 
     # Install Regolith packages
     # TODO: remove plymouth-theme-regolith, regolith-lightdm-config after fix
+    # NOTE: metacity satisfies a hard-coded window manager dependency for ubiquity
     apt-get install -y \
         firefox \
         firefox-locale-en \
         gnome-software \
+        metacity \
         plymouth-theme-regolith \
         plymouth-themes \
         regolith-lightdm-config \
@@ -67,16 +70,15 @@ function customize_image() {
         update-notifier
 
     # Due to some unknown contention these must be removed before gnome-shell
-    apt-get purge -y \
-        plymouth-theme-ubuntu-logo \
-        plymouth-theme-ubuntu-text
+    apt-get -o Debug::pkgProblemResolver=true purge -y \
+        plymouth-theme-ubuntu-text \
+        gnome-remote-desktop
 
     # Remove desktop components unneeded by Regolith
     apt-get -o Debug::pkgProblemResolver=true purge -y \
         gdm3 \
         gnome-shell \
         ubuntu-session \
-        ubiquity-slideshow-ubuntu \
         ubiquity-ubuntu-artwork
 
     # Set wallpaper for installer.  JPG -> PNG is intentional.
