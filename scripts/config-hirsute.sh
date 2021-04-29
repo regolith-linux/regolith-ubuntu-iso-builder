@@ -60,7 +60,7 @@ function customize_image() {
         firefox-locale-en \
         gnome-software \
         metacity \
-        plymouth-theme-regolith \
+        plymouth-theme-regolith-logo \
         plymouth-themes \
         regolith-lightdm-config \
         regolith-system \
