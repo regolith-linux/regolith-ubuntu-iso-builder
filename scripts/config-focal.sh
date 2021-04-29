@@ -35,6 +35,7 @@ export TARGET_PACKAGE_REMOVE="
     ubuntu-session \
     ubuntu-desktop \
     budgie-core \
+    metacity \
 "
 
 # Package customisation function.  Update this function to customize packages
@@ -57,7 +58,8 @@ function customize_image() {
         firefox \
         firefox-locale-en \
         gnome-software \
-        plymouth-theme-regolith \
+        metacity \
+        plymouth-theme-regolith-logo \
         plymouth-themes \
         regolith-lightdm-config \
         regolith-system \
@@ -67,16 +69,16 @@ function customize_image() {
         update-notifier
 
     # Due to some unknown contention these must be removed before gnome-shell
-    apt-get purge -y \
-        plymouth-theme-ubuntu-logo \
-        plymouth-theme-ubuntu-text
+    apt-get -o Debug::pkgProblemResolver=true purge -y \
+        plymouth-theme-ubuntu-text \
+        plymouth-theme-spinner \
+        gnome-remote-desktop
 
     # Remove desktop components unneeded by Regolith
-    apt-get purge -y \
+    apt-get -o Debug::pkgProblemResolver=true purge -y \
         gdm3 \
         gnome-shell \
         ubuntu-session \
-        ubiquity-slideshow-ubuntu \
         ubiquity-ubuntu-artwork
 
     # Set wallpaper for installer.  JPG -> PNG is intentional.
