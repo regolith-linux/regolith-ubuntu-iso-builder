@@ -29,6 +29,9 @@ export GRUB_LIVEBOOT_LABEL="Try $TARGET_DISTRO_NAME"
 # The text label shown in GRUB for starting installation
 export GRUB_INSTALL_LABEL="Install $TARGET_DISTRO_NAME"
 
+# Name and version of distribution
+export VERSIONED_DISTRO_NAME="$TARGET_DISTRO_NAME $TARGET_DISTRO_VERSION"
+
 # Packages to be removed from the target system after installation completes succesfully
 export TARGET_PACKAGE_REMOVE="
     ubiquity \
