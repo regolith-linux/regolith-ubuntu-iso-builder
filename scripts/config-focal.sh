@@ -5,6 +5,12 @@
 # Usage: Copy this file to config.sh and make changes there.  Keep this file (default_config.sh) as-is
 #   so that subsequent changes can be easily merged from upstream.  Keep all customiations in config.sh
 
+# The brand name of the distribution
+export TARGET_DISTRO_NAME="Regolith"
+
+# The version of the distribution to be installed
+export TARGET_DISTRO_VERSION="1.6.0"
+
 # The version of Ubuntu to generate.  Successfully tested: focal, groovy
 # See https://wiki.ubuntu.com/DevelopmentCodeNames for details
 export TARGET_UBUNTU_VERSION="focal"
@@ -15,13 +21,13 @@ export TARGET_KERNEL_PACKAGE="linux-generic"
 
 # The file (no extension) of the ISO containing the generated disk image,
 # the volume id, and the hostname of the live environment are set from this name.
-export TARGET_NAME="regolith-linux-$TARGET_UBUNTU_VERSION-1.6.0"
+export TARGET_NAME="${TARGET_DISTRO_NAME// /_}"
 
 # The text label shown in GRUB for booting into the live environment
-export GRUB_LIVEBOOT_LABEL="Try Regolith"
+export GRUB_LIVEBOOT_LABEL="Try $TARGET_DISTRO_NAME"
 
 # The text label shown in GRUB for starting installation
-export GRUB_INSTALL_LABEL="Install Regolith"
+export GRUB_INSTALL_LABEL="Install $TARGET_DISTRO_NAME"
 
 # Packages to be removed from the target system after installation completes succesfully
 export TARGET_PACKAGE_REMOVE="
@@ -53,7 +59,8 @@ function customize_image() {
     add-apt-repository -y ppa:regolith-linux/unstable
 
     # Install Regolith packages
-    # TODO: remove plymouth-theme-regolith, regolith-lightdm-config after fix
+    # TODO: remove plymouth-theme-regolit after fix in regolith-system
+    # NOTE: metacity satisfies a hard-coded window manager dependency for ubiquity
     apt-get install -y \
         firefox \
         firefox-locale-en \
@@ -61,7 +68,6 @@ function customize_image() {
         metacity \
         plymouth-theme-regolith-logo \
         plymouth-themes \
-        regolith-lightdm-config \
         regolith-system \
         software-properties-gtk \
         ubiquity-slideshow-regolith \
@@ -93,4 +99,4 @@ function customize_image() {
 
 # Used to version the configuration.  If breaking changes occur, manual
 # updates to this file from the default may be necessary.
-export CONFIG_FILE_VERSION="0.3"
+export CONFIG_FILE_VERSION="0.4"
