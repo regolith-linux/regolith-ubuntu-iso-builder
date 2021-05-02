@@ -34,4 +34,4 @@ jobs:
           prerelease: true
           automatic_release_tag: "regolith-linux-focal-latest"
           files: |
-            scripts/regolith-linux-focal-1.6.0.iso
+            scripts/Regolith_1.6.0_focal.iso

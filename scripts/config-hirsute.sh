@@ -34,7 +34,7 @@ export GRUB_INSTALL_LABEL="Install $TARGET_DISTRO_NAME"
 export RELEASE_NOTES_URL="https://regolith-linux.org/docs/reference/releases/regolith-1.6.0-release-notes/"
 
 # Name and version of distribution
-export VERSIONED_DISTRO_NAME="$TARGET_DISTRO_NAME $TARGET_DISTRO_VERSION"
+export VERSIONED_DISTRO_NAME="$TARGET_DISTRO_NAME $TARGET_DISTRO_VERSION $TARGET_UBUNTU_VERSION"
 
 # Packages to be removed from the target system after installation completes succesfully
 export TARGET_PACKAGE_REMOVE="
