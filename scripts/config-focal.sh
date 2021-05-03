@@ -31,7 +31,7 @@ export GRUB_INSTALL_LABEL="Install $TARGET_DISTRO_NAME"
 
 # A link to a web page containing release notes associated with the installation
 # Selectable in the first page of the Ubiquity installer
-export RELEASE_NOTES_URL="hhttps://regolith-linux.org/docs/reference/releases/regolith-1.6.0-release-notes/"
+export RELEASE_NOTES_URL="https://regolith-linux.org/docs/reference/releases/regolith-1.6.0-release-notes/"
 
 # Name and version of distribution
 export VERSIONED_DISTRO_NAME="$TARGET_DISTRO_NAME $TARGET_DISTRO_VERSION $TARGET_UBUNTU_VERSION"
@@ -95,11 +95,15 @@ function customize_image() {
         ubiquity-ubuntu-artwork
 
     # Set wallpaper for installer.  JPG -> PNG is intentional.
-    cp /usr/share/backgrounds/lucas-bellator-C0OD8OM-oM0-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
+    cp /usr/share/backgrounds/dennis-schweizer-18nR85wWyLY-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
 
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
     echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
+
+    sed -i "/GRUB_DISTRIBUTOR/d" /etc/default/grub
+    echo 'GRUB_DISTRIBUTOR="Regolith"' >> /etc/default/grub
+    /usr/sbin/update-grub    
 
     echo "Regolith: end ------------------"
 }

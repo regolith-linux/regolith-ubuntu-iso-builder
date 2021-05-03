@@ -95,11 +95,15 @@ function customize_image() {
         ubiquity-ubuntu-artwork
 
     # Set wallpaper for installer.  JPG -> PNG is intentional.
-    cp /usr/share/backgrounds/lucas-bellator-C0OD8OM-oM0-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
+    cp /usr/share/backgrounds/dennis-schweizer-18nR85wWyLY-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
 
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
     echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
+
+    sed -i "/GRUB_DISTRIBUTOR/d" /etc/default/grub
+    echo 'GRUB_DISTRIBUTOR="Regolith"' >> /etc/default/grub
+    /usr/sbin/update-grub    
 
     echo "Regolith: end ------------------"
 }
