@@ -44,4 +44,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/release')
         with:
           files: |
-            scripts/Regolith_$RELEASE_VERSION_$RELEASE_SUITE.iso
+            scripts/Regolith_${RELEASE_VERSION}_${RELEASE_SUITE}.iso
