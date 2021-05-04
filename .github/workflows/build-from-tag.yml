@@ -1,0 +1,47 @@
+name: build-from-tag
+
+on:
+  push:
+    tags:
+      - 'release-*'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Parse Tag
+        id: parse_tag
+        run: |
+          TAG=${GITHUB_REF#/ref/tags/release-}
+          RELEASE_STAGE=echo $TAG | cut -d- -f1
+          RELEASE_SUITE=echo $TAG | cut -d- -f2
+          RELEASE_VERSION=echo $TAG | cut -d- -f3
+          echo ::set-output name=TAG_LABEL::$TAG
+          echo ::set-output name=RELEASE_STAGE::$RELEASE_STAGE
+          echo ::set-output name=RELEASE_SUITE::$RELEASE_SUITE
+          echo ::set-output name=RELEASE_VERSION::$RELEASE_VERSION
+      - name: Build ISO
+        env:
+            RELEASE_STAGE: ${{ steps.parse_tag.outputs.RELEASE_STAGE }}
+            RELEASE_SUITE: ${{ steps.parse_tag.outputs.RELEASE_SUITE }}
+        run: |
+          cd scripts
+          cp config-$RELEASE_SUITE.sh config.sh
+          sed -i -e "s/ppa:regolith-linux\/unstable/ppa:regolith-linux\/$RELEASE_STAGE/g" config.sh
+          ./build.sh -
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        env:
+            TAG_LABEL: ${{ steps.parse_tag.outputs.TAG_LABEL }}
+            RELEASE_VERSION: ${{ steps.parse_tag.outputs.RELEASE_VERSION }}
+        if: startsWith(github.ref, 'refs/tags/release')
+        tag: $TAG_LABEL
+        with:
+          files: |
+            scripts/Regolith_$RELEASE_VERSION_$RELEASE_SUITE.iso
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
