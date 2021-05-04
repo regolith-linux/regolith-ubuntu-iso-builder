@@ -16,6 +16,8 @@ jobs:
       - name: Parse Tag
         id: parse_tag
         run: |
+          set -x
+          echo $GITHUB_REF
           TAG=${GITHUB_REF#/ref/tags/release-}
           RELEASE_STAGE=echo $TAG | cut -d- -f1
           RELEASE_SUITE=echo $TAG | cut -d- -f2
