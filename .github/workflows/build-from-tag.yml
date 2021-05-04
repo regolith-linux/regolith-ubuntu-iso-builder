@@ -40,7 +40,6 @@ jobs:
             TAG_LABEL: ${{ steps.parse_tag.outputs.TAG_LABEL }}
             RELEASE_VERSION: ${{ steps.parse_tag.outputs.RELEASE_VERSION }}
         if: startsWith(github.ref, 'refs/tags/release')
-        tag: $TAG_LABEL
         with:
           files: |
             scripts/Regolith_$RELEASE_VERSION_$RELEASE_SUITE.iso
