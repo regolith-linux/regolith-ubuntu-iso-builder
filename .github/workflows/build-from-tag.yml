@@ -2,6 +2,7 @@ name: build-from-tag
 
 on:
   push:
+    branches: [ master ]
     tags:
       - 'release-*'
 
