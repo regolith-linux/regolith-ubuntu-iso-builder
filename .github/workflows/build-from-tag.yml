@@ -18,9 +18,9 @@ jobs:
           set -x
           echo $GITHUB_REF
           TAG=${GITHUB_REF#/ref/tags/release-}
-          RELEASE_STAGE=echo $TAG | cut -d- -f1
-          RELEASE_SUITE=echo $TAG | cut -d- -f2
-          RELEASE_VERSION=echo $TAG | cut -d- -f3
+          RELEASE_STAGE=$(echo $TAG | cut -d- -f1)
+          RELEASE_SUITE=$(echo $TAG | cut -d- -f2)
+          RELEASE_VERSION=$(echo $TAG | cut -d- -f3)
           echo ::set-output name=TAG_LABEL::$TAG
           echo ::set-output name=RELEASE_STAGE::$RELEASE_STAGE
           echo ::set-output name=RELEASE_SUITE::$RELEASE_SUITE
