@@ -37,6 +37,12 @@ jobs:
           cp config-$RELEASE_SUITE.sh config.sh
           sed -i -e "s/ppa:regolith-linux\/unstable/ppa:regolith-linux\/$RELEASE_STAGE/g" config.sh
           ./build.sh -
+      - name: Hash Artifacts
+        env:
+          ISO_FILENAME: ${{ steps.parse_tag.outputs.ISO_FILENAME }}
+        run: |
+          sha256sum $ISO_FILENAME > scripts/SHA256SUMS
+          md5sum $ISO_FILENAME > scripts/MD5SUMS
       - name: Release
         uses: softprops/action-gh-release@v1
         env:
@@ -48,3 +54,5 @@ jobs:
           fail_on_unmatched_files: true
           files: |
             $ISO_FILENAME
+            scripts/SHA256SUMS
+            scripts/MD5SUMS
