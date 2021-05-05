@@ -21,10 +21,12 @@ jobs:
           RELEASE_STAGE=$(echo $TAG | cut -d- -f1)
           RELEASE_SUITE=$(echo $TAG | cut -d- -f2)
           RELEASE_VERSION=$(echo $TAG | cut -d- -f3)
+          ISO_FILENAME="scripts/Regolith_${RELEASE_VERSION}_${RELEASE_SUITE}.iso"
           echo ::set-output name=TAG_LABEL::$TAG
           echo ::set-output name=RELEASE_STAGE::$RELEASE_STAGE
           echo ::set-output name=RELEASE_SUITE::$RELEASE_SUITE
           echo ::set-output name=RELEASE_VERSION::$RELEASE_VERSION
+          echo ::set-output name=ISO_FILENAME::$ISO_FILENAME
       - name: Build ISO
         env:
             RELEASE_STAGE: ${{ steps.parse_tag.outputs.RELEASE_STAGE }}
@@ -34,14 +36,22 @@ jobs:
           cp config-$RELEASE_SUITE.sh config.sh
           sed -i -e "s/ppa:regolith-linux\/unstable/ppa:regolith-linux\/$RELEASE_STAGE/g" config.sh
           ./build.sh -
-
+      - name: Hash Artifacts
+          env:
+            ISO_FILENAME: ${{ steps.parse_tag.outputs.ISO_FILENAME }}
+          run: |
+            sha256sum $ISO_FILENAME > scripts/SHA256SUMS
+            md5sum $ISO_FILENAME > scripts/MD5SUMS
       - name: Release
         uses: softprops/action-gh-release@v1
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             TAG_LABEL: ${{ steps.parse_tag.outputs.TAG_LABEL }}
-            RELEASE_VERSION: ${{ steps.parse_tag.outputs.RELEASE_VERSION }}
+            ISO_FILENAME: ${{ steps.parse_tag.outputs.ISO_FILENAME }}
         if: startsWith(github.ref, 'refs/tags/release')
         with:
+          fail_on_unmatched_files: true
           files: |
-            scripts/Regolith_${RELEASE_VERSION}_${RELEASE_SUITE}.iso
+            $ISO_FILENAME
+            scripts/SHA256SUMS
+            scripts/MD5SUMS
