@@ -37,9 +37,9 @@ jobs:
           sed -i -e "s/ppa:regolith-linux\/unstable/ppa:regolith-linux\/$RELEASE_STAGE/g" config.sh
           ./build.sh -
       - name: Hash Artifacts
-          env:
+        env:
             ISO_FILENAME: ${{ steps.parse_tag.outputs.ISO_FILENAME }}
-          run: |
+        run: |
             sha256sum $ISO_FILENAME > scripts/SHA256SUMS
             md5sum $ISO_FILENAME > scripts/MD5SUMS
       - name: Release
