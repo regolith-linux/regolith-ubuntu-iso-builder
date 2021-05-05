@@ -22,7 +22,7 @@ jobs:
           RELEASE_STAGE=$(echo $TAG | cut -d- -f1)
           RELEASE_SUITE=$(echo $TAG | cut -d- -f2)
           RELEASE_VERSION=$(echo $TAG | cut -d- -f3)
-          ISO_FILENAME="scripts/Regolith_${RELEASE_VERSION}_${RELEASE_SUITE}.iso"
+          ISO_FILENAME="scripts/Regolith_1.6.0_${RELEASE_SUITE}.iso"
           echo ::set-output name=TAG_LABEL::$TAG
           echo ::set-output name=RELEASE_STAGE::$RELEASE_STAGE
           echo ::set-output name=RELEASE_SUITE::$RELEASE_SUITE
