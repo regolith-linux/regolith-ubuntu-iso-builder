@@ -50,9 +50,8 @@ jobs:
           TAG_LABEL: ${{ steps.parse_tag.outputs.TAG_LABEL }}
           ISO_FILENAME: ${{ steps.parse_tag.outputs.ISO_FILENAME }}
         if: startsWith(github.ref, 'refs/tags/release')
-        with:
-          fail_on_unmatched_files: true
+        with:        
           files: |
-            $ISO_FILENAME
+            scripts/*.iso
             scripts/SHA256SUMS
             scripts/MD5SUMS
