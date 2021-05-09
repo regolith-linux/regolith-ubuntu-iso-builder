@@ -270,6 +270,7 @@ EOF
         --grub2-mbr /usr/lib/grub/i386-pc/boot_hybrid.img \
         -eltorito-alt-boot \
         -e EFI/efiboot.img \
+        -joliet \
         -no-emul-boot \
         -append_partition 2 0xef isolinux/efiboot.img \
         -output "$SCRIPT_DIR/${VERSIONED_DISTRO_NAME// /_}.iso" \
