@@ -79,7 +79,38 @@ function customize_image() {
         software-properties-gtk \
         ubiquity-slideshow-regolith \
         ubuntu-release-upgrader-gtk \
-        update-notifier
+        update-notifier \
+        acpi-support \
+        acpid \
+        apt-transport-https \
+        apturl \
+        apturl-common \
+        avahi-autoipd \
+        dmz-cursor-theme \
+        eog \
+        file-roller \
+        gnome-disk-utility \
+        gnome-font-viewer \
+        gnome-power-manager \
+        gnome-screenshot \
+        kerneloops \
+        less \
+        libnotify-bin \
+        nautilus \
+        network-manager-openvpn \
+        network-manager-openvpn-gnome \
+        network-manager-pptp-gnome \
+        policykit-desktop-privileges \
+        rfkill \
+        ssl-cert \
+        syslinux \
+        syslinux-common \
+        syslinux-legacy \
+        thermald \
+        vim \
+        xcursor-themes \
+        xdg-user-dirs-gtk \
+        zip
 
     # Due to some unknown contention these must be removed before gnome-shell
     apt-get -o Debug::pkgProblemResolver=true purge -y \
