@@ -105,7 +105,6 @@ function customize_image() {
         ssl-cert \
         syslinux \
         syslinux-common \
-        syslinux-legacy \
         thermald \
         vim \
         xcursor-themes \
