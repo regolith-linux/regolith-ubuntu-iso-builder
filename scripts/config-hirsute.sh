@@ -130,11 +130,7 @@ function customize_image() {
 
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
-    echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
-
-    sed -i "/GRUB_DISTRIBUTOR/d" /etc/default/grub
-    echo 'GRUB_DISTRIBUTOR="Regolith"' >> /etc/default/grub
-    /usr/sbin/update-grub    
+    echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf   
 
     echo "Regolith: end ------------------"
 }
