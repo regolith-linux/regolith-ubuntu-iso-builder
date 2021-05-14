@@ -102,6 +102,7 @@ function customize_image() {
         network-manager-pptp-gnome \
         policykit-desktop-privileges \
         rfkill \
+        shim-signed \
         ssl-cert \
         syslinux \
         syslinux-common \
