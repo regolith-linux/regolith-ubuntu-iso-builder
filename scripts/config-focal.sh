@@ -69,17 +69,6 @@ function customize_image() {
     # TODO: remove plymouth-theme-regolit after fix in regolith-system
     # NOTE: metacity satisfies a hard-coded window manager dependency for ubiquity
     apt-get install -y \
-        firefox \
-        firefox-locale-en \
-        gnome-software \
-        metacity \
-        plymouth-theme-regolith-logo \
-        plymouth-themes \
-        regolith-system \
-        software-properties-gtk \
-        ubiquity-slideshow-regolith \
-        ubuntu-release-upgrader-gtk \
-        update-notifier \
         acpi-support \
         acpid \
         apt-transport-https \
@@ -89,26 +78,42 @@ function customize_image() {
         dmz-cursor-theme \
         eog \
         file-roller \
+        firefox \
+        firefox-locale-en \
         gnome-disk-utility \
         gnome-font-viewer \
         gnome-power-manager \
         gnome-screenshot \
+        gnome-software \
         kerneloops \
+        language-pack-en \
+        language-pack-en-base \
+        language-pack-gnome-en \
+        language-pack-gnome-en-base \
         less \
         libnotify-bin \
+        metacity \
         nautilus \
         network-manager-openvpn \
         network-manager-openvpn-gnome \
         network-manager-pptp-gnome \
+        plymouth-theme-regolith-logo \
+        plymouth-themes \
         policykit-desktop-privileges \
+        regolith-system \
         rfkill \
         shim-signed \
+        software-properties-gtk \
         ssl-cert \
         syslinux \
         syslinux-common \
         syslinux-legacy \
         thermald \
+        ubiquity-slideshow-regolith \
+        ubuntu-release-upgrader-gtk \
+        update-notifier \
         vim \
+        wbritish \
         xcursor-themes \
         xdg-user-dirs-gtk \
         zip
