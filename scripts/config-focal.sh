@@ -103,6 +103,7 @@ function customize_image() {
         regolith-system \
         rfkill \
         shim-signed \
+        rsyslog \
         software-properties-gtk \
         ssl-cert \
         syslinux \

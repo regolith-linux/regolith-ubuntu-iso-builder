@@ -102,6 +102,7 @@ function customize_image() {
         policykit-desktop-privileges \
         regolith-system \
         rfkill \
+        rsyslog \
         shim-signed \
         software-properties-gtk \
         ssl-cert \
