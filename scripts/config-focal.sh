@@ -86,6 +86,7 @@ function customize_image() {
         gnome-power-manager \
         gnome-screenshot \
         gnome-software \
+        grub-efi \
         kerneloops \
         language-pack-en \
         language-pack-en-base \
