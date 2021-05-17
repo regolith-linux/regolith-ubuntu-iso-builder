@@ -76,6 +76,7 @@ function customize_image() {
         apturl-common \
         avahi-autoipd \
         dmz-cursor-theme \
+        efivar \
         eog \
         file-roller \
         firefox \
@@ -117,6 +118,7 @@ function customize_image() {
         wbritish \
         xcursor-themes \
         xdg-user-dirs-gtk \
+        zfsutils-linux \
         zip
 
     # Due to some unknown contention these must be removed before gnome-shell
