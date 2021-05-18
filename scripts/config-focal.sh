@@ -69,7 +69,7 @@ function customize_image() {
     # TODO: remove plymouth-theme-regolit after fix in regolith-system
     # NOTE: metacity satisfies a hard-coded window manager dependency for ubiquity
     apt-get install -y \
-        acpi-support \
+    acpi-support \
         acpid \
         apt-transport-https \
         apturl \
@@ -86,7 +86,6 @@ function customize_image() {
         gnome-power-manager \
         gnome-screenshot \
         gnome-software \
-        grub-efi \
         kerneloops \
         language-pack-en \
         language-pack-en-base \
@@ -104,13 +103,9 @@ function customize_image() {
         policykit-desktop-privileges \
         regolith-system \
         rfkill \
-        shim-signed \
         rsyslog \
         software-properties-gtk \
         ssl-cert \
-        syslinux \
-        syslinux-common \
-        syslinux-legacy \
         thermald \
         ubiquity-slideshow-regolith \
         ubuntu-release-upgrader-gtk \
@@ -140,7 +135,7 @@ function customize_image() {
 
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
-    echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf 
+    echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
 
     echo "Regolith: end ------------------"
 }
