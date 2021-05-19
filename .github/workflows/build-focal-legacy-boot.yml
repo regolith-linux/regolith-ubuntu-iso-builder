@@ -4,13 +4,13 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'scripts/config-focal-legacy-boot.sh'
+      - 'scripts/config-focal_legacy_boot.sh'
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
   pull_request:
     branches: [ master ]
     paths:
-      - 'scripts/config-focal-legacy-boot.sh'
+      - 'scripts/config-focal_legacy_boot.sh'
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
       - name: Build ISO
         run: |
           cd scripts
-          cp config-focal-legacy-boot.sh config.sh
+          cp config-focal_legacy_boot.sh config.sh
           ./build.sh -
 
       - uses: "marvinpinto/action-automatic-releases@latest"
