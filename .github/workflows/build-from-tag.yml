@@ -32,7 +32,8 @@ jobs:
         env:
           RELEASE_VERSION: ${{ steps.parse_tag.outputs.RELEASE_VERSION }}
         run: |
-          wget -O release-notes.md https://github.com/regolith-linux/website/raw/v2/content/en/docs/Reference/Releases/regolith-${RELEASE_VERSION}-release-notes.md 
+          wget -O release-notes-raw.md https://github.com/regolith-linux/website/raw/v2/content/en/docs/Reference/Releases/regolith-${RELEASE_VERSION}-release-notes.md
+          tail -n +8 release-notes-raw.md > release-notes.md
       - name: Build ISO
         env:
           RELEASE_STAGE: ${{ steps.parse_tag.outputs.RELEASE_STAGE }}
