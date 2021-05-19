@@ -4,13 +4,13 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'scripts/config-hirsute.sh'
+      - 'scripts/config-hirsute_standard.sh'
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
   pull_request:
     branches: [ master ]
     paths:
-      - 'scripts/config-hirsute.sh'
+      - 'scripts/config-hirsute_standard.sh'
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
       - name: Build ISO
         run: |
           cd scripts
-          cp config-hirsute.sh config.sh
+          cp config-hirsute_standard.sh config.sh
           ./build.sh -
 
       - uses: "marvinpinto/action-automatic-releases@latest"
@@ -34,4 +34,4 @@ jobs:
           prerelease: true
           automatic_release_tag: "regolith-linux-hirsute-latest"
           files: |
-            scripts/Regolith_1.6.0_hirsute.iso
+            scripts/*.iso

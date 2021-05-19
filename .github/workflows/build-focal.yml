@@ -4,13 +4,13 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'scripts/config-focal.sh'
+      - 'scripts/config-focal_standard.sh'
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
   pull_request:
     branches: [ master ]
     paths:
-      - 'scripts/config-focal.sh'
+      - 'scripts/config-focal_standard.sh'
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
       - name: Build ISO
         run: |
           cd scripts
-          cp config-focal.sh config.sh
+          cp config-focal_standard.sh config.sh
           ./build.sh -
 
       - uses: "marvinpinto/action-automatic-releases@latest"
@@ -34,4 +34,4 @@ jobs:
           prerelease: true
           automatic_release_tag: "regolith-linux-focal-latest"
           files: |
-            scripts/Regolith_1.6.0_focal.iso
+            scripts/*.iso
