@@ -86,6 +86,7 @@ function customize_image() {
         gnome-power-manager \
         gnome-screenshot \
         gnome-software \
+        grub-pc \
         kerneloops \
         language-pack-en \
         language-pack-en-base \
@@ -104,7 +105,6 @@ function customize_image() {
         regolith-system \
         rfkill \
         rsyslog \
-        shim-signed \
         software-properties-gtk \
         ssl-cert \
         thermald \
