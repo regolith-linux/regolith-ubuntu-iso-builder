@@ -161,12 +161,12 @@ insmod all_video
 set default="0"
 set timeout=30
 
-menuentry "${GRUB_LIVEBOOT_LABEL}" {
+menuentry "${GRUB_LIVEBOOT_LABEL}" --class regolith {
    linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
    initrd /casper/initrd
 }
 
-menuentry "${GRUB_INSTALL_LABEL}" {
+menuentry "${GRUB_INSTALL_LABEL}" --class regolith {
    linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
    initrd /casper/initrd
 }
