@@ -31,7 +31,7 @@ export GRUB_INSTALL_LABEL="Install $TARGET_DISTRO_NAME"
 
 # A link to a web page containing release notes associated with the installation
 # Selectable in the first page of the Ubiquity installer
-export RELEASE_NOTES_URL="https://regolith-linux.org/docs/reference/releases/regolith-1.6-release/"
+export RELEASE_NOTES_URL="https://regolith-linux.org/docs/reference/releases/regolith-1.6.0-release-notes/"
 
 # Name and version of distribution
 export VERSIONED_DISTRO_NAME="$TARGET_DISTRO_NAME $TARGET_DISTRO_VERSION $TARGET_UBUNTU_VERSION"
