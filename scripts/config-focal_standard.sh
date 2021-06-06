@@ -85,7 +85,6 @@ function customize_image() {
         gnome-font-viewer \
         gnome-power-manager \
         gnome-screenshot \
-        gnome-software \
         kerneloops \
         language-pack-en \
         language-pack-en-base \
@@ -113,10 +112,12 @@ function customize_image() {
         update-notifier \
         vim \
         wbritish \
-        xcursor-themes \
         xdg-user-dirs-gtk \
         zfsutils-linux \
         zip
+
+    apt-get install --no-install-recommends -o Debug::pkgProblemResolver=true -y \
+        gnome-software
         
     # Due to some unknown contention these must be removed before gnome-shell
     apt-get -o Debug::pkgProblemResolver=true purge -y \

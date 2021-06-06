@@ -85,7 +85,6 @@ function customize_image() {
         gnome-font-viewer \
         gnome-power-manager \
         gnome-screenshot \
-        gnome-software \
         grub-pc \
         kerneloops \
         language-pack-en \
@@ -117,6 +116,9 @@ function customize_image() {
         xdg-user-dirs-gtk \
         zfsutils-linux \
         zip
+
+    apt-get install --no-install-recommends -o Debug::pkgProblemResolver=true -y \
+        gnome-software
 
     # Due to some unknown contention these must be removed before gnome-shell
     apt-get -o Debug::pkgProblemResolver=true purge -y \
