@@ -101,7 +101,7 @@ function customize_image() {
         plymouth-theme-regolith-logo \
         plymouth-themes \
         policykit-desktop-privileges \
-        regolith-system \
+        regolith-distro-ubuntu \
         rfkill \
         rsyslog \
         shim-signed \
