@@ -136,7 +136,8 @@ function customize_image() {
         ubiquity-ubuntu-artwork
 
     # Set wallpaper for installer.  JPG -> PNG is intentional.
-    cp /usr/share/backgrounds/dennis-schweizer-18nR85wWyLY-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
+    # Disabled temporarily for 2.0
+    # cp /usr/share/backgrounds/dennis-schweizer-18nR85wWyLY-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
 
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
