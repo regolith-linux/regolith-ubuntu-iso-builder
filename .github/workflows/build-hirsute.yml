@@ -13,6 +13,7 @@ on:
       - 'scripts/config-hirsute_standard.sh'
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
+  repository_dispatch:
   workflow_dispatch:
 
 jobs:
@@ -32,6 +33,6 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: true
-          automatic_release_tag: "regolith-linux-hirsute-latest"
+          automatic_release_tag: "regolith-linux-2.0-hirsute-latest"
           files: |
             scripts/*.iso

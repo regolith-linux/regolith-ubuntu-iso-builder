@@ -9,7 +9,7 @@
 export TARGET_DISTRO_NAME="Regolith"
 
 # The version of the distribution to be installed
-export TARGET_DISTRO_VERSION="1.6.0"
+export TARGET_DISTRO_VERSION="2.0.0"
 
 # The version of Ubuntu to generate.  Successfully tested: focal, groovy
 # See https://wiki.ubuntu.com/DevelopmentCodeNames for details
@@ -62,8 +62,10 @@ function customize_image() {
         software-properties-common \
         whoopsie
 
-    # Add Regolith PPA to apt configuration
-    add-apt-repository -y ppa:regolith-linux/unstable
+    # Add Regolith repo to apt configuration
+    wget -qO - https://regolith-linux.github.io/package-repo/regolith.key | sudo apt-key add -
+    echo deb [arch=amd64] https://regolith-linux.github.io/package-repo/ubuntu/hirsute/amd64 hirsute main | sudo tee /etc/apt/sources.list.d/regolith.list
+    apt update
 
     # Install Regolith packages
     # TODO: remove plymouth-theme-regolit after fix in regolith-system
