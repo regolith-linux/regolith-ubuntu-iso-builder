@@ -9,7 +9,7 @@
 export TARGET_DISTRO_NAME="Regolith"
 
 # The version of the distribution to be installed
-export TARGET_DISTRO_VERSION="1.6.0"
+export TARGET_DISTRO_VERSION="2.0.0"
 
 # The version of Ubuntu to generate.  Successfully tested: focal, groovy
 # See https://wiki.ubuntu.com/DevelopmentCodeNames for details
@@ -31,7 +31,7 @@ export GRUB_INSTALL_LABEL="Install $TARGET_DISTRO_NAME"
 
 # A link to a web page containing release notes associated with the installation
 # Selectable in the first page of the Ubiquity installer
-export RELEASE_NOTES_URL="https://regolith-linux.org/docs/reference/releases/regolith-1.6-release/"
+export RELEASE_NOTES_URL="https://regolith-linux.org/docs/reference/releases/regolith-1.6.0-release-notes/"
 
 # Name and version of distribution
 export VERSIONED_DISTRO_NAME="$TARGET_DISTRO_NAME $TARGET_DISTRO_VERSION $TARGET_UBUNTU_VERSION"
@@ -62,8 +62,10 @@ function customize_image() {
         software-properties-common \
         whoopsie
 
-    # Add Regolith PPA to apt configuration
-    add-apt-repository -y ppa:regolith-linux/unstable
+    # Add Regolith repo to apt configuration
+    wget -qO - https://regolith-linux.github.io/package-repo/regolith.key | sudo apt-key add -
+    echo deb [arch=amd64] https://regolith-linux.github.io/package-repo/ubuntu/hirsute/amd64 hirsute main | sudo tee /etc/apt/sources.list.d/regolith.list
+    apt update
 
     # Install Regolith packages
     # TODO: remove plymouth-theme-regolit after fix in regolith-system
@@ -99,7 +101,7 @@ function customize_image() {
         plymouth-theme-regolith-logo \
         plymouth-themes \
         policykit-desktop-privileges \
-        regolith-system \
+        regolith-distro-ubuntu \
         rfkill \
         rsyslog \
         shim-signed \
@@ -134,7 +136,8 @@ function customize_image() {
         ubiquity-ubuntu-artwork
 
     # Set wallpaper for installer.  JPG -> PNG is intentional.
-    cp /usr/share/backgrounds/dennis-schweizer-18nR85wWyLY-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
+    # Disabled temporarily for 2.0
+    # cp /usr/share/backgrounds/dennis-schweizer-18nR85wWyLY-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
 
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
