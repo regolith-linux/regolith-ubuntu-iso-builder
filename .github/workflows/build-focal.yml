@@ -14,7 +14,9 @@ on:
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
   workflow_dispatch:
-
+concurrency: 
+  group: ubuntu-iso-build
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-20.04
