@@ -1,0 +1,40 @@
+name: build-jammy
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'scripts/config-jammy_standard.sh'
+      - 'scripts/chroot_build.sh'
+      - 'scripts/build.sh'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'scripts/config-jammy_standard.sh'
+      - 'scripts/chroot_build.sh'
+      - 'scripts/build.sh'
+  repository_dispatch:
+  workflow_dispatch:
+concurrency: 
+  group: ubuntu-iso-build
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build ISO
+        run: |
+          cd scripts
+          cp config-jammy_standard.sh config.sh
+          ./build.sh -
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          automatic_release_tag: "regolith-linux-2.0-jammy-latest"
+          files: |
+            scripts/*.iso
