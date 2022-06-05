@@ -28,7 +28,7 @@ jobs:
       - name: Build ISO
         run: |
           cd scripts
-          cp config-jammy_standard.sh config.sh
+          cp config-jammy-standard.sh config.sh
           ./build.sh -
 
       - uses: "marvinpinto/action-automatic-releases@latest"
@@ -38,3 +38,4 @@ jobs:
           automatic_release_tag: "regolith-linux-2.0-jammy-latest"
           files: |
             scripts/*.iso
+            scripts/image/md5sum.txt
