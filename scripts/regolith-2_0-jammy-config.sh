@@ -60,7 +60,8 @@ function customize_image() {
 
     # install graphics and desktop
     apt-get install -y \
-    regolith-system-ubuntu
+    regolith-system-ubuntu \
+    ubiquity-slideshow-regolith
 
     # useful tools
     apt-get install -y \
@@ -83,7 +84,8 @@ function customize_image() {
     aisleriot \
     hitori \
     ubuntu-session \
-    ubuntu-desktop
+    ubuntu-desktop \
+    ubiquity-ubuntu-artwork
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
