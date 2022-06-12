@@ -47,6 +47,12 @@ export TARGET_PACKAGE_REMOVE="
     discover \
     laptop-detect \
     os-prober \
+    gnome-shell \
+    gdm3 \
+    ubuntu-session \
+    ubuntu-desktop \
+    budgie-core \
+    metacity
 "
 
 # Package customisation function.  Update this function to customize packages
@@ -58,32 +64,38 @@ function customize_image() {
     echo deb "[arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.io/release-ubuntu-jammy-amd64 jammy main" | sudo tee /etc/apt/sources.list.d/regolith.list
     apt update
 
-    # install graphics and desktop
     apt-get install -y \
-    regolith-system-ubuntu
+        apt-transport-https \
+        memtest86+ \
+        plymouth-theme-regolith-logo \
+        plymouth-themes \
+        regolith-system-ubuntu \
+        ubiquity-slideshow-regolith \
+        ubuntu-release-upgrader-gtk
 
-    # useful tools
-    apt-get install -y \
-    clamav-daemon \
-    terminator \
-    apt-transport-https \
-    curl \
-    vim \
-    nano \
-    memtest86+ \
-    less
-
-    # purge
+    # Due to some unknown contention these must be removed before gnome-shell
+    apt-get -o Debug::pkgProblemResolver=true purge -y \
+        
+    # Remove desktop components unneeded by Regolith
     apt-get purge -y \
-    transmission-gtk \
-    transmission-common \
-    gnome-mahjongg \
-    gnome-mines \
-    gnome-sudoku \
-    aisleriot \
-    hitori \
-    ubuntu-session \
-    ubuntu-desktop
+        aisleriot \
+        gnome-mahjongg \
+        gnome-mines \
+        gnome-remote-desktop \
+        gnome-sudoku \
+        hitori \
+        plymouth-theme-spinner \
+        plymouth-theme-ubuntu-text \
+        transmission-common \
+        transmission-gtk
+
+    # Remove gnome-shell and Ubuntu base desktop components
+    apt-get purge -y \
+        gdm3 \
+        gnome-shell \
+        ubuntu-session \
+        ubuntu-desktop \
+        ubiquity-ubuntu-artwork
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
