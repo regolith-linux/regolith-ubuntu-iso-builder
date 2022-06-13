@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: 22.04
 
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +24,6 @@ jobs:
         run: |
           cd scripts
           mv regolith-2_0-jammy-config.sh default_config.sh
-          export DEBIAN_FRONTEND=noninteractive
           ./build.sh -
 
       - uses: "marvinpinto/action-automatic-releases@latest"
