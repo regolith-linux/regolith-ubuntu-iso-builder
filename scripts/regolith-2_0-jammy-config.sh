@@ -122,8 +122,7 @@ function customize_image() {
         aisleriot \
         hitori \
         ubuntu-session \
-        ubuntu-desktop \
-        ubiquity-ubuntu-artwork
+        ubuntu-desktop
 
     apt-get autoremove -y
 
