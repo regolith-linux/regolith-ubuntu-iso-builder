@@ -7,6 +7,7 @@ on:
       - 'scripts/regolith-2_0-jammy-config.sh'
       - 'scripts/chroot_build.sh'
       - 'scripts/build.sh'
+      - '.github/workflows/build-jammy.yml'
   repository_dispatch:
   workflow_dispatch:
 concurrency: 
