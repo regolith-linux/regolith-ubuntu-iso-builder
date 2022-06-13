@@ -95,7 +95,7 @@ function customize_image() {
         network-manager-openvpn-gnome \
         network-manager-pptp-gnome \
         policykit-desktop-privileges \
-        regolith-system-ubuntu
+        regolith-system-ubuntu \
         rfkill \
         rsyslog \
         shim-signed \
