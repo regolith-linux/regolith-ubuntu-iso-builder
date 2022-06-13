@@ -24,6 +24,7 @@ jobs:
         run: |
           cd scripts
           mv regolith-2_0-jammy-config.sh default_config.sh
+          export DEBIAN_FRONTEND=noninteractive
           ./build.sh -
 
       - uses: "marvinpinto/action-automatic-releases@latest"
