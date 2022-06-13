@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
-    runs-on: [self-hosted, Linux, X64, jammy]
+    runs-on: [self-hosted, Linux, X64]
 
     steps:
       - uses: actions/checkout@v3
