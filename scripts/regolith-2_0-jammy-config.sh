@@ -47,6 +47,8 @@ export TARGET_PACKAGE_REMOVE="
     discover \
     laptop-detect \
     os-prober \
+    gdm3 \
+    gnome-shell \
 "
 
 # Package customisation function.  Update this function to customize packages
@@ -60,8 +62,7 @@ function customize_image() {
 
     # install graphics and desktop
     apt-get install -y \
-    regolith-system-ubuntu \
-    ubiquity-slideshow-regolith
+    regolith-system-ubuntu
 
     # useful tools
     apt-get install -y \
@@ -84,8 +85,7 @@ function customize_image() {
     aisleriot \
     hitori \
     ubuntu-session \
-    ubuntu-desktop \
-    ubiquity-ubuntu-artwork
+    ubuntu-desktop
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
