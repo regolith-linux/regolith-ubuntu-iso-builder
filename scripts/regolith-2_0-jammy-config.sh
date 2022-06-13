@@ -47,8 +47,12 @@ export TARGET_PACKAGE_REMOVE="
     discover \
     laptop-detect \
     os-prober \
-    gdm3 \
     gnome-shell \
+    gdm3 \
+    ubuntu-session \
+    ubuntu-desktop \
+    budgie-core \
+    metacity
 "
 
 # Package customisation function.  Update this function to customize packages
@@ -62,30 +66,70 @@ function customize_image() {
 
     # install graphics and desktop
     apt-get install -y \
-    regolith-system-ubuntu
-
-    # useful tools
-    apt-get install -y \
-    clamav-daemon \
-    terminator \
-    apt-transport-https \
-    curl \
-    vim \
-    nano \
-    memtest86+ \
-    less
+        acpi-support \
+        acpid \
+        apt-transport-https \
+        apturl \
+        apturl-common \
+        avahi-autoipd \
+        dmz-cursor-theme \
+        eog \
+        file-roller \
+        firefox \
+        firefox-locale-en \
+        gnome-disk-utility \
+        gnome-font-viewer \
+        gnome-power-manager \
+        gnome-screenshot \
+        kerneloops \
+        language-pack-en \
+        language-pack-en-base \
+        language-pack-gnome-en \
+        language-pack-gnome-en-base \
+        less \
+        libnotify-bin \
+        memtest86+ \
+        metacity \
+        nautilus \
+        network-manager-openvpn \
+        network-manager-openvpn-gnome \
+        network-manager-pptp-gnome \
+        policykit-desktop-privileges \
+        regolith-system-ubuntu
+        rfkill \
+        rsyslog \
+        shim-signed \
+        software-properties-gtk \
+        ssl-cert \
+        syslinux \
+        syslinux-common \
+        thermald \
+        ubuntu-release-upgrader-gtk \
+        update-notifier \
+        vim \
+        wbritish \
+        xcursor-themes \
+        xdg-user-dirs-gtk \
+        zip
 
     # purge
     apt-get purge -y \
-    transmission-gtk \
-    transmission-common \
-    gnome-mahjongg \
-    gnome-mines \
-    gnome-sudoku \
-    aisleriot \
-    hitori \
-    ubuntu-session \
-    ubuntu-desktop
+        transmission-gtk \
+        transmission-common \
+        gnome-mahjongg \
+        gnome-mines \
+        gnome-sudoku \
+        aisleriot \
+        hitori \
+        ubuntu-session \
+        ubuntu-desktop \
+        ubiquity-ubuntu-artwork
+
+    apt-get autoremove -y
+
+    # Specify Regolith session for autologin
+    echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
+    echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
