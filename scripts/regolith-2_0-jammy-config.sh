@@ -114,17 +114,23 @@ function customize_image() {
 
     # purge
     apt-get purge -y \
-        transmission-gtk \
-        transmission-common \
+        aisleriot \
+        evolution-data-server \
+        evolution-data-server-common \
+        gdm3 \
         gnome-mahjongg \
         gnome-mines \
         gnome-sudoku \
-        aisleriot \
         hitori \
-        ubuntu-session \
-        ubuntu-desktop
+        transmission-common \
+        transmission-gtk \
+        ubuntu-desktop \
+        ubuntu-session
 
     apt-get autoremove -y
+
+    # Set wallpaper for installer.  JPG -> PNG is intentional.
+    cp /usr/share/backgrounds/dennis-schweizer-18nR85wWyLY-unsplash.jpg /usr/share/backgrounds/warty-final-ubuntu.png
 
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
