@@ -94,6 +94,7 @@ function customize_image() {
         network-manager-openvpn \
         network-manager-openvpn-gnome \
         network-manager-pptp-gnome \
+        plymouth-theme-regolith-logo \
         policykit-desktop-privileges \
         regolith-system-ubuntu \
         rfkill \
