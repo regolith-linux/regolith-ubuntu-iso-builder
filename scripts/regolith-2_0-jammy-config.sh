@@ -71,6 +71,9 @@ function customize_image() {
 
     apt update
 
+    echo "KGWH"
+    apt-cache policy firefox
+
     # install graphics and desktop
     apt-get install -y \
         acpi-support \
@@ -82,7 +85,6 @@ function customize_image() {
         dmz-cursor-theme \
         eog \
         file-roller \
-        firefox \
         gnome-disk-utility \
         gnome-font-viewer \
         gnome-power-manager \
