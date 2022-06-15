@@ -59,7 +59,10 @@ export TARGET_PACKAGE_REMOVE="
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
-    apt install -y gpg wget
+    apt install -y \
+        gpg \
+        wget \
+        software-properties-common
 
     wget -qO - https://regolith-desktop.io/regolith.key | gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg
     echo deb "[arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.io/testing-ubuntu-jammy-amd64 jammy main" | sudo tee /etc/apt/sources.list.d/regolith.list
