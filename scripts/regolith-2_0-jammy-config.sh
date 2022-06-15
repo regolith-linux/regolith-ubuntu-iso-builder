@@ -52,7 +52,8 @@ export TARGET_PACKAGE_REMOVE="
     ubuntu-session \
     ubuntu-desktop \
     budgie-core \
-    metacity
+    metacity \
+    snapd \
 "
 
 # Package customisation function.  Update this function to customize packages
@@ -62,6 +63,9 @@ function customize_image() {
 
     wget -qO - https://regolith-desktop.io/regolith.key | gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg
     echo deb "[arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.io/testing-ubuntu-jammy-amd64 jammy main" | sudo tee /etc/apt/sources.list.d/regolith.list
+
+    sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
+
     apt update
 
     # install graphics and desktop
@@ -76,7 +80,6 @@ function customize_image() {
         eog \
         file-roller \
         firefox \
-        firefox-locale-en \
         gnome-disk-utility \
         gnome-font-viewer \
         gnome-power-manager \
@@ -128,7 +131,8 @@ function customize_image() {
         transmission-common \
         transmission-gtk \
         ubuntu-desktop \
-        ubuntu-session
+        ubuntu-session \
+        snapd
 
     apt-get autoremove -y
 
