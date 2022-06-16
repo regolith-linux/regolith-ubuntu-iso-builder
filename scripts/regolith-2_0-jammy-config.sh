@@ -117,6 +117,7 @@ function customize_image() {
         syslinux \
         syslinux-common \
         thermald \
+        ubiquity-slideshow-regolith \
         ubuntu-release-upgrader-gtk \
         update-notifier \
         vim \
