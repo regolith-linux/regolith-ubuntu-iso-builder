@@ -69,13 +69,13 @@ function customize_image() {
     wget -qO - https://regolith-desktop.io/regolith.key | gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg
     echo -e "\ndeb [arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.io/testing-ubuntu-jammy-amd64 jammy main" | sudo tee /etc/apt/sources.list.d/regolith.list
 
-    apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 2667CA5C
-    echo -e "\ndeb http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main" | sudo tee /etc/apt/sources.list.d/ubuntuzilla.list
-
+    # Fix firefox ~ https://ubuntuhandbook.org/index.php/2022/04/install-firefox-deb-ubuntu-22-04/
+    snap remove firefox
+    add-apt-repository ppa:mozillateam/ppa
+    echo "Package: firefox*" > /etc/apt/preferences.d/mozillateamppa
+    echo "Pin: release o=LP-PPA-mozillateam" >> /etc/apt/preferences.d/mozillateamppa
+    echo "Pin-Priority: 501" >> /etc/apt/preferences.d/mozillateamppa
     apt update
-
-    echo "KGWH"
-    apt-cache policy firefox
 
     # install graphics and desktop
     apt-get install -y \
@@ -88,6 +88,7 @@ function customize_image() {
         dmz-cursor-theme \
         eog \
         file-roller \
+        firefox \
         gnome-disk-utility \
         gnome-font-viewer \
         gnome-power-manager \
@@ -150,6 +151,10 @@ function customize_image() {
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
     echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
+   
+    # TODO: remove after firefox fixed
+    echo "KGWH"
+    apt-cache policy firefox
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
