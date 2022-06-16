@@ -70,7 +70,7 @@ function customize_image() {
     echo -e "\ndeb [arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.io/testing-ubuntu-jammy-amd64 jammy main" | sudo tee /etc/apt/sources.list.d/regolith.list
 
     # Fix firefox ~ https://ubuntuhandbook.org/index.php/2022/04/install-firefox-deb-ubuntu-22-04/
-    apt remove remove firefox
+    apt-get purge -y firefox
     add-apt-repository ppa:mozillateam/ppa
     echo "Package: firefox*" > /etc/apt/preferences.d/mozillateamppa
     echo "Pin: release o=LP-PPA-mozillateam" >> /etc/apt/preferences.d/mozillateamppa
