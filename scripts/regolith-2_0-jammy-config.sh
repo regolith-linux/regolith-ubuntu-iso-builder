@@ -151,10 +151,6 @@ function customize_image() {
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
     echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
-   
-    # TODO: remove after firefox fixed
-    echo "KGWH"
-    apt-cache policy firefox
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
