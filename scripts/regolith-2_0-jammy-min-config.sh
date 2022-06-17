@@ -25,7 +25,7 @@ export TARGET_KERNEL_PACKAGE="linux-generic"
 
 # The file (no extension) of the ISO containing the generated disk image,
 # the volume id, and the hostname of the live environment are set from this name.
-export TARGET_NAME="${TARGET_DISTRO_NAME// /_}"
+export TARGET_NAME="${TARGET_DISTRO_NAME-mini// /_}"
 
 # The text label shown in GRUB for booting into the live environment
 export GRUB_LIVEBOOT_LABEL="Try $TARGET_DISTRO_NAME"
@@ -93,16 +93,6 @@ function customize_image() {
         gnome-font-viewer \
         gnome-power-manager \
         gnome-screenshot \
-        i3xrocks-app-launcher \
-        i3xrocks-battery \
-        i3xrocks-bluetooth \
-        i3xrocks-info \
-        i3xrocks-memory \
-        i3xrocks-net-traffic \
-        i3xrocks-next-workspace \
-        i3xrocks-rofication \
-        i3xrocks-time \
-        i3xrocks-volume \
         kerneloops \
         language-pack-en \
         language-pack-en-base \
@@ -118,11 +108,6 @@ function customize_image() {
         network-manager-pptp-gnome \
         plymouth-theme-regolith-logo \
         policykit-desktop-privileges \
-        regolith-look-blackhole \
-        regolith-look-gruvbox \
-        regolith-look-nevil \
-        regolith-look-nord \
-        regolith-look-solarized-dark \
         regolith-system-ubuntu \
         rfkill \
         rsyslog \
