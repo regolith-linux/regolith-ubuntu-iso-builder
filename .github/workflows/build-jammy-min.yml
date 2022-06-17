@@ -1,4 +1,4 @@
-name: build-jammy-min
+name: build-jammy-mini
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
 concurrency: 
-  group: ubuntu-iso-build
+  group: ubuntu-iso-build-mini
   cancel-in-progress: true
 jobs:
   build:
