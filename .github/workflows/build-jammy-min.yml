@@ -33,10 +33,10 @@ jobs:
           source-file: "regolith-2.0.0.iso"
           destination-path: "dist/regolith-mini-2.0.0.iso"
           site-name: exquisite-griffin-f13246
-          netlify-token: ${{ secrets.NETLIFY_TOKEN }}
+          netlify-token: ${{ secrets.NETLIFY_SECRET_KEY }}
       - uses: MrFlynn/upload-to-netlify-action@v2
         with:
           source-file: "regolith-2.0.0.md5sum"
           destination-path: "dist/regolith-mini-2.0.0.md5sum"
           site-name: exquisite-griffin-f13246
-          netlify-token: ${{ secrets.NETLIFY_TOKEN }}
+          netlify-token: ${{ secrets.NETLIFY_SECRET_KEY }}
