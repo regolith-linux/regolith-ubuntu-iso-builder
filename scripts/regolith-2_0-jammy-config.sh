@@ -71,7 +71,7 @@ function customize_image() {
 
     # Fix firefox ~ https://ubuntuhandbook.org/index.php/2022/04/install-firefox-deb-ubuntu-22-04/
     apt-get purge -y firefox
-    add-apt-repository ppa:mozillateam/ppa
+    add-apt-repository -y ppa:mozillateam/ppa
     echo "Package: firefox*" > /etc/apt/preferences.d/mozillateamppa
     echo "Pin: release o=LP-PPA-mozillateam" >> /etc/apt/preferences.d/mozillateamppa
     echo "Pin-Priority: 501" >> /etc/apt/preferences.d/mozillateamppa
