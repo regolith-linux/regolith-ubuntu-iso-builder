@@ -25,6 +25,7 @@ jobs:
           cd scripts
           mv regolith-2_0-jammy-min-config.sh default_config.sh
           ./build.sh -
+          cd ..
           mv scripts/Regolith.iso regolith-mini-2.0.0.iso
           mv scripts/image/md5sum.txt regolith-mini-2.0.0.md5sum
       - uses: MrFlynn/upload-to-netlify-action@v2
