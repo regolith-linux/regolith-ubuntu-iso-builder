@@ -96,6 +96,7 @@ function customize_image() {
         i3xrocks-app-launcher \
         i3xrocks-battery \
         i3xrocks-bluetooth \
+        i3xrocks-focused-window-name \
         i3xrocks-info \
         i3xrocks-memory \
         i3xrocks-net-traffic \
