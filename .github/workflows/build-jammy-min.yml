@@ -23,20 +23,20 @@ jobs:
       - name: Build ISO
         run: |
           cd scripts
-          mv regolith-2_0-jammy-min-config.sh default_config.sh
+          mv regolith-2_1-jammy-min-config.sh default_config.sh
           ./build.sh -
           cd ..
-          mv scripts/Regolith.iso regolith-mini-2.0.0.iso
-          mv scripts/image/md5sum.txt regolith-mini-2.0.0.md5sum
+          mv scripts/Regolith.iso regolith-mini-ubuntu-jammy-2.1-beta2.iso
+          mv scripts/image/md5sum.txt regolith-mini-ubuntu-jammy-2.1-beta2.md5sum
       - uses: MrFlynn/upload-to-netlify-action@v2
         with:
-          source-file: "regolith-mini-2.0.0.iso"
-          destination-path: "dist/regolith-mini-2.0.0.iso"
+          source-file: "regolith-mini-ubuntu-jammy-2.1-beta2.iso"
+          destination-path: "dist/regolith-mini-ubuntu-jammy-2.1-beta2.iso"
           site-name: exquisite-griffin-f13246
           netlify-token: ${{ secrets.NETLIFY_SECRET_KEY }}
       - uses: MrFlynn/upload-to-netlify-action@v2
         with:
-          source-file: "regolith-mini-2.0.0.md5sum"
-          destination-path: "dist/regolith-mini-2.0.0.md5sum"
+          source-file: "regolith-mini-ubuntu-jammy-2.1-beta2.md5sum"
+          destination-path: "dist/regolith-mini-ubuntu-jammy-2.1-beta2.md5sum"
           site-name: exquisite-griffin-f13246
           netlify-token: ${{ secrets.NETLIFY_SECRET_KEY }}

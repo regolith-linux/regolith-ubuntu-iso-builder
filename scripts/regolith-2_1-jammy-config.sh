@@ -119,8 +119,13 @@ function customize_image() {
         network-manager-pptp-gnome \
         plymouth-theme-regolith-logo \
         policykit-desktop-privileges \
+        regolith-look-ayu \
+        regolith-look-ayu-dark \
+        regolith-look-ayu-mirage \
         regolith-look-blackhole \
+        regolith-look-dracula \
         regolith-look-gruvbox \
+        regolith-look-i3-default \
         regolith-look-nevil \
         regolith-look-nord \
         regolith-look-solarized-dark \
@@ -151,6 +156,7 @@ function customize_image() {
         gnome-mahjongg \
         gnome-mines \
         gnome-sudoku \
+        lightdm-gtk-greeter \
         hitori \
         plymouth-theme-spinner \
         plymouth-theme-ubuntu-text \
