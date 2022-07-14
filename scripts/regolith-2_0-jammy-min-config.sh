@@ -136,6 +136,7 @@ function customize_image() {
         gnome-mines \
         gnome-sudoku \
         hitori \
+        lightdm-gtk-greeter \
         plymouth-theme-spinner \
         plymouth-theme-ubuntu-text \
         transmission-common \
