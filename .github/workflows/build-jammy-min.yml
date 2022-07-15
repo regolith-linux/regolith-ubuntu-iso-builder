@@ -28,15 +28,12 @@ jobs:
           cd ..
           mv scripts/Regolith.iso regolith-mini-ubuntu-jammy-2.1-beta2.iso
           mv scripts/image/md5sum.txt regolith-mini-ubuntu-jammy-2.1-beta2.md5sum
-      - uses: MrFlynn/upload-to-netlify-action@v2
+      - uses: webfactory/ssh-agent@v0.5.4
+        if: steps.changes.outputs.changed == 1
         with:
-          source-file: "regolith-mini-ubuntu-jammy-2.1-beta2.iso"
-          destination-path: "dist/regolith-mini-ubuntu-jammy-2.1-beta2.iso"
-          site-name: exquisite-griffin-f13246
-          netlify-token: ${{ secrets.NETLIFY_SECRET_KEY }}
-      - uses: MrFlynn/upload-to-netlify-action@v2
-        with:
-          source-file: "regolith-mini-ubuntu-jammy-2.1-beta2.md5sum"
-          destination-path: "dist/regolith-mini-ubuntu-jammy-2.1-beta2.md5sum"
-          site-name: exquisite-griffin-f13246
-          netlify-token: ${{ secrets.NETLIFY_SECRET_KEY }}
+          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+      - name: Pull repo
+        if: steps.changes.outputs.changed == 1
+        run: |
+          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
+          scp regolith-mini-ubuntu-jammy-2.1-beta2.iso regolith-mini-ubuntu-jammy-2.1-beta2.md5sum root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/isos/
