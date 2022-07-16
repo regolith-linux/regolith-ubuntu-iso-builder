@@ -119,6 +119,8 @@ function customize_image() {
         network-manager-pptp-gnome \
         plymouth-theme-regolith-logo \
         policykit-desktop-privileges \
+        regolith-compositor-picom-glx \
+        regolith-i3-swap-focus \
         regolith-look-ayu \
         regolith-look-ayu-dark \
         regolith-look-ayu-mirage \
@@ -126,6 +128,7 @@ function customize_image() {
         regolith-look-dracula \
         regolith-look-gruvbox \
         regolith-look-i3-default \
+        regolith-look-lascaille \
         regolith-look-nevil \
         regolith-look-nord \
         regolith-look-solarized-dark \
