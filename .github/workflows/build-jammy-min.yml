@@ -21,19 +21,26 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build ISO
+        id: build-iso
         run: |
           cd scripts
           mv regolith-2_1-jammy-min-config.sh default_config.sh
           ./build.sh -
           cd ..
-          mv scripts/Regolith.iso regolith-mini-ubuntu-jammy-2.1-beta2.iso
-          mv scripts/image/md5sum.txt regolith-mini-ubuntu-jammy-2.1-beta2.md5sum
+          mv scripts/Regolith.iso regolith-mini-ubuntu-jammy-2.1.iso
+          mv scripts/image/md5sum.txt regolith-mini-ubuntu-jammy-2.1.md5sum
+          echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
       - uses: webfactory/ssh-agent@v0.5.4
-        if: steps.changes.outputs.changed == 1
         with:
           ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
-      - name: Pull repo
-        if: steps.changes.outputs.changed == 1
+      - name: Deploy
         run: |
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
-          scp regolith-mini-ubuntu-jammy-2.1-beta2.iso regolith-mini-ubuntu-jammy-2.1-beta2.md5sum root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/isos/
+          scp regolith-mini-ubuntu-jammy-2.1.iso regolith-mini-ubuntu-jammy-2.1.md5sum root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/isos/
+      - uses: softprops/action-gh-release@v1
+        with:
+          body: See regolith-desktop.com for released files
+          name: Mini ISO Build ${{ steps.build-iso.outputs.TIMESTAMP }}
+          tag_name: mini-isobuild-${{ steps.build-iso.outputs.TIMESTAMP }}
+          files: |
+            *.md5sum
