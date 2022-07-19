@@ -31,14 +31,17 @@ jobs:
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+      - name: Compress
+        run: |
+          zip regolith-ubuntu-jammy-2.1.zip regolith-ubuntu-jammy-2.1.iso regolith-ubuntu-jammy-2.1.md5sum
       - name: Deploy
         run: |
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
-          scp regolith-ubuntu-jammy-2.1.iso regolith-ubuntu-jammy-2.1.md5sum root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/isos/
+          scp regolith-ubuntu-jammy-2.1.zip root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/isos/
       - uses: softprops/action-gh-release@v1
         with:
           body: See regolith-desktop.com for released files
           name: ISO Build ${{ steps.build-iso.outputs.TIMESTAMP }}
           tag_name: isobuild-${{ steps.build-iso.outputs.TIMESTAMP }}
           files: |
-            *.md5sum
+            regolith-ubuntu-jammy-2.1.zip
