@@ -1,14 +1,6 @@
 name: build-jammy
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'scripts/regolith-2_0-jammy-config.sh'
-      - 'scripts/chroot_build.sh'
-      - 'scripts/build.sh'
-      - '.github/workflows/build-jammy.yml'
-  repository_dispatch:
   workflow_dispatch:
 concurrency: 
   group: ubuntu-iso-build
