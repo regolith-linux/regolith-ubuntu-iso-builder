@@ -1,0 +1,47 @@
+name: build
+
+on:
+  workflow_dispatch:
+concurrency: 
+  group: ubuntu-iso-build
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        descriptor: ["ubuntu-jammy-2.1.1", "mini-ubuntu-jammy-2.1.1"]
+        include:
+          - descriptor: "ubuntu-jammy-2.1.1"
+            config-file: regolith-2_1-jammy-config.sh
+          - descriptor: "mini-ubuntu-jammy-2.1.1"
+            config-file: regolith-2_1-jammy-min-config.sh
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build ISO
+        id: build-iso
+        run: |
+          cd scripts
+          mv ${{ matrix.config-file }} default_config.sh
+          ./build.sh -
+          cd ..
+          mv scripts/Regolith.iso regolith-${{ matrix.descriptor }}.iso          
+          echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
+      - name: Compress
+        run: |
+          md5sum regolith-${{ matrix.descriptor }}.iso > regolith-${{ matrix.descriptor }}.md5sum
+          zip regolith-${{ matrix.descriptor }}.zip regolith-${{ matrix.descriptor }}.iso regolith-${{ matrix.descriptor }}.md5sum
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+      - name: Deploy
+        run: |
+          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
+          scp regolith-${{ matrix.descriptor }}.zip root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/isos/
+      - uses: softprops/action-gh-release@v1
+        with:
+          body: See regolith-desktop.com for released files
+          name: ISO ${{ matrix.descriptor }} Build ${{ steps.build-iso.outputs.TIMESTAMP }}
+          tag_name: ${{ matrix.descriptor }}-${{ steps.build-iso.outputs.TIMESTAMP }}
+          files: |
+            regolith-${{ matrix.descriptor }}.zip
