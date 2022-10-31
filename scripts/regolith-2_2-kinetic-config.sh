@@ -59,7 +59,6 @@ export TARGET_PACKAGE_REMOVE="
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
-    set -x
     apt update
 
     apt install -y \
@@ -179,7 +178,6 @@ function customize_image() {
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
     echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
 
-    set +x
     echo "--- Customization phase complete"    
 }
 
