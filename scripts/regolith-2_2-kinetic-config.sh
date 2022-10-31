@@ -79,7 +79,6 @@ function customize_image() {
 
     # install graphics and desktop
     apt-get install -y \
-        acpi-support \
         acpid \
         apt-transport-https \
         apturl \
