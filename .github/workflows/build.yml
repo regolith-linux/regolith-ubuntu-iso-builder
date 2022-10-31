@@ -12,7 +12,7 @@ jobs:
       matrix:
         descriptor: ["ubuntu-jammy-2.2.0"]
         include:
-          - descriptor: "ubuntu-jammy-2.2"
+          - descriptor: "ubuntu-jammy-2.2.0"
             config-file: regolith-2_2-kinetic-config.sh
     steps:
       - uses: actions/checkout@v3
