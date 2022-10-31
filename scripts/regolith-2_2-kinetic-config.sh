@@ -59,6 +59,7 @@ export TARGET_PACKAGE_REMOVE="
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
+    set -x
     apt update
 
     apt install -y \
@@ -139,6 +140,7 @@ function customize_image() {
         ssl-cert \
         syslinux \
         syslinux-common \
+        systemd-resolved \
         thermald \
         ubiquity-slideshow-regolith \
         ubuntu-release-upgrader-gtk \
@@ -176,6 +178,9 @@ function customize_image() {
     # Specify Regolith session for autologin
     echo "[SeatDefaults]" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
     echo "user-session=regolith" >> /etc/lightdm/lightdm.conf.d/10_regolith.conf
+
+    set +x
+    echo "--- Customization phase complete"    
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
