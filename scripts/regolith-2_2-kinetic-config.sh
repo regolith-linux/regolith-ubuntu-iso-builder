@@ -124,6 +124,7 @@ function customize_image() {
         regolith-look-ayu-dark \
         regolith-look-ayu-mirage \
         regolith-look-blackhole \
+        regolith-look-default \
         regolith-look-dracula \
         regolith-look-gruvbox \
         regolith-look-i3-default \
