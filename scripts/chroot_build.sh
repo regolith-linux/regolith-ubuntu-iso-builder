@@ -137,12 +137,11 @@ function install_pkg() {
 
     # final touch
     dpkg-reconfigure locales
-    dpkg-reconfigure resolvconf
+    dpkg-reconfigure systemd-resolved
 
     # network manager
     cat <<EOF > /etc/NetworkManager/NetworkManager.conf
 [main]
-rc-manager=resolvconf
 plugins=ifupdown,keyfile
 dns=dnsmasq
 
