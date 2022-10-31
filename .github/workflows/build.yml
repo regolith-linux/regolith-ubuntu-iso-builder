@@ -10,12 +10,10 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        descriptor: ["ubuntu-jammy-2.1.1", "mini-ubuntu-jammy-2.1.1"]
+        descriptor: ["ubuntu-jammy-2.2.0"]
         include:
-          - descriptor: "ubuntu-jammy-2.1.1"
-            config-file: regolith-2_1-jammy-config.sh
-          - descriptor: "mini-ubuntu-jammy-2.1.1"
-            config-file: regolith-2_1-jammy-min-config.sh
+          - descriptor: "ubuntu-jammy-2.2"
+            config-file: regolith-2_2-kinetic-config.sh
     steps:
       - uses: actions/checkout@v3
       - name: Build ISO
