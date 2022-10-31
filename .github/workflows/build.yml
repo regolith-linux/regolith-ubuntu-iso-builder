@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        descriptor: ["ubuntu-jammy-2.2.0"]
+        descriptor: ["ubuntu-kinetic-2.2.0"]
         include:
-          - descriptor: "ubuntu-jammy-2.2.0"
+          - descriptor: "ubuntu-kinetic-2.2.0"
             config-file: regolith-2_2-kinetic-config.sh
     steps:
       - uses: actions/checkout@v3
@@ -29,13 +29,6 @@ jobs:
         run: |
           md5sum regolith-${{ matrix.descriptor }}.iso > regolith-${{ matrix.descriptor }}.md5sum
           zip regolith-${{ matrix.descriptor }}.zip regolith-${{ matrix.descriptor }}.iso regolith-${{ matrix.descriptor }}.md5sum
-      - uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
-      - name: Deploy
-        run: |
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
-          scp regolith-${{ matrix.descriptor }}.zip root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/isos/
       - uses: softprops/action-gh-release@v1
         with:
           body: See regolith-desktop.com for released files
