@@ -67,7 +67,7 @@ function customize_image() {
         software-properties-common
 
     wget -qO - https://regolith-desktop.org/regolith.key | gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg
-    echo -e "\ndeb [arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.org/testing-ubuntu-kinetic-amd64 kinetic main" | sudo tee /etc/apt/sources.list.d/regolith.list
+    echo -e "\ndeb [arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.org/unstable-ubuntu-kinetic-amd64 kinetic main" | sudo tee /etc/apt/sources.list.d/regolith.list
 
     # Fix firefox ~ https://ubuntuhandbook.org/index.php/2022/04/install-firefox-deb-ubuntu-22-04/
     apt-get purge -y firefox
