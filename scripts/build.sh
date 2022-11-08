@@ -251,8 +251,8 @@ EOF
 
     sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
 
-    sudo xorriso
-        -as mkisofs
+    sudo xorriso \
+        -as mkisofs \
         -r \
         -volid "${TARGET_NAME}" \
         -full-iso9660-filenames \
