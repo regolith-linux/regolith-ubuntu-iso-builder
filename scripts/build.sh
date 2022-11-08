@@ -251,29 +251,29 @@ EOF
 
     sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
 
-    sudo xorriso
-        -as mkisofs
-        -r \
-        -volid "${TARGET_NAME}" \
+    sudo xorriso \
+        -as mkisofs \
+        -iso-level 3 \
         -full-iso9660-filenames \
-        -J -J -joliet-long \
-        -output "$SCRIPT_DIR/$TARGET_NAME.iso" \
-        --grub2-mbr /usr/lib/grub/i386-pc/boot_hybrid.img \
-        -partition_offset 16 \
-        --mbr-force-bootable \
-        -append_partition 2 28732ac11ff8d211ba4b00a0c93ec93b isolinux/efiboot.img \
-        -appended_part_as_gpt \
-        -iso_mbr_part_type a2a0d0ebe5b9334487c068b6b72699c7 \
-        -eltorito-boot isolinux/bios.img \
+        -volid "$TARGET_NAME" \
+        -eltorito-boot boot/grub/bios.img \
         -no-emul-boot \
         -boot-load-size 4 \
         -boot-info-table \
         --eltorito-catalog boot/grub/boot.cat \
         --grub2-boot-info \
+        --grub2-mbr /usr/lib/grub/i386-pc/boot_hybrid.img \
         -eltorito-alt-boot \
-        -e '--interval:appended_partition_2:::' \
+        -e EFI/efiboot.img \
         -no-emul-boot \
-        "."
+        -append_partition 2 0xef isolinux/efiboot.img \
+        -output "$SCRIPT_DIR/$TARGET_NAME.iso" \
+        -m "isolinux/efiboot.img" \
+        -m "isolinux/bios.img" \
+        -graft-points \
+           "/EFI/efiboot.img=isolinux/efiboot.img" \
+           "/boot/grub/bios.img=isolinux/bios.img" \
+           "."
 
     popd
 }
