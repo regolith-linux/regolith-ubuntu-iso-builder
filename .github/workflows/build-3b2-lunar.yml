@@ -1,0 +1,38 @@
+name: build
+
+on:
+  workflow_dispatch:
+concurrency: 
+  group: ubuntu-iso-build
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        descriptor: ["ubuntu-lunar-3b2"]
+        include:
+          - descriptor: "ubuntu-lunar-3b2"
+            config-file: regolith-3b2-lunar-config.sh
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build ISO
+        id: build-iso
+        run: |
+          cd scripts
+          mv ${{ matrix.config-file }} default_config.sh
+          ./build.sh -
+          cd ..
+          mv scripts/Regolith.iso regolith-${{ matrix.descriptor }}.iso          
+          echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
+      - name: Compress
+        run: |
+          md5sum regolith-${{ matrix.descriptor }}.iso > regolith-${{ matrix.descriptor }}.md5sum
+          zip regolith-${{ matrix.descriptor }}.zip regolith-${{ matrix.descriptor }}.iso regolith-${{ matrix.descriptor }}.md5sum
+      - uses: softprops/action-gh-release@v1
+        with:
+          body: See regolith-desktop.com for released files
+          name: ISO ${{ matrix.descriptor }} Build ${{ steps.build-iso.outputs.TIMESTAMP }}
+          tag_name: ${{ matrix.descriptor }}-${{ steps.build-iso.outputs.TIMESTAMP }}
+          files: |
+            regolith-${{ matrix.descriptor }}.zip
