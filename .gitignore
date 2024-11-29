@@ -1,0 +1,11 @@
+# default_config should never be checked in
+scripts/default_config.sh
+
+# build chroot and image
+scripts/chroot
+scripts/image
+scripts/certificates
+
+# final iso
+*.iso
+/builds/

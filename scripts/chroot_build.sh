@@ -7,7 +7,7 @@ set -u                  # treat unset variable as error
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-CMD=(setup_host install_pkg finish_up)
+CMD=(setup_host install_pkg build_image finish_up)
 
 function help() {
     # if $1 is set, use $1 as headline message in help()
@@ -100,34 +100,46 @@ function install_pkg() {
 
     # install live packages
     apt-get install -y \
-    sudo \
-    ubuntu-standard \
-    casper \
-    discover \
-    laptop-detect \
-    os-prober \
-    network-manager \
-    resolvconf \
-    net-tools \
-    wireless-tools \
-    wpagui \
-    grub-common \
-    grub-gfxpayload-lists \
-    grub-pc \
-    grub-pc-bin \
-    grub2-common \
-    locales
+        sudo \
+        ubuntu-standard \
+        casper \
+        discover \
+        laptop-detect \
+        os-prober \
+        network-manager \
+        net-tools \
+        wireless-tools \
+        wpagui \
+        locales \
+        grub-common \
+        grub-gfxpayload-lists \
+        grub-pc \
+        grub-pc-bin \
+        grub2-common \
+        grub-efi-amd64-signed \
+        shim-signed \
+        mtools \
+        binutils
+    
+    case $TARGET_UBUNTU_VERSION in
+        "focal" | "bionic")
+            apt-get install -y lupin-casper
+            ;;
+        *)
+            echo "Package lupin-casper is not needed. Skipping."
+            ;;
+    esac
     
     # install kernel
     apt-get install -y --no-install-recommends $TARGET_KERNEL_PACKAGE
 
     # graphic installer - ubiquity
     apt-get install -y \
-    ubiquity \
-    ubiquity-casper \
-    ubiquity-frontend-gtk \
-    ubiquity-slideshow-ubuntu \
-    ubiquity-ubuntu-artwork
+        ubiquity \
+        ubiquity-casper \
+        ubiquity-frontend-gtk \
+        ubiquity-slideshow-ubuntu \
+        ubiquity-ubuntu-artwork
 
     # Call into config function
     customize_image
@@ -137,13 +149,13 @@ function install_pkg() {
 
     # final touch
     dpkg-reconfigure locales
-    dpkg-reconfigure systemd-resolved
 
     # network manager
     cat <<EOF > /etc/NetworkManager/NetworkManager.conf
 [main]
+rc-manager=none
 plugins=ifupdown,keyfile
-dns=dnsmasq
+dns=systemd-resolved
 
 [ifupdown]
 managed=false
@@ -152,6 +164,125 @@ EOF
     dpkg-reconfigure network-manager
 
     apt-get clean -y
+}
+
+function build_image() {
+    echo "=====> running build_image ..."
+
+    rm -rf /image
+
+    mkdir -p /image/{casper,isolinux,install}
+
+    pushd /image
+
+    # copy kernel files
+    cp /boot/vmlinuz-**-**-generic casper/vmlinuz
+    cp /boot/initrd.img-**-**-generic casper/initrd
+
+    # memtest86
+    wget --progress=dot https://memtest.org/download/v7.00/mt86plus_7.00.binaries.zip -O install/memtest86.zip
+    unzip -p install/memtest86.zip memtest64.bin > install/memtest86+.bin
+    unzip -p install/memtest86.zip memtest64.efi > install/memtest86+.efi
+    rm -f install/memtest86.zip
+
+    # grub
+    touch ubuntu
+    cat <<EOF > isolinux/grub.cfg
+
+search --set=root --file /ubuntu
+
+insmod all_video
+
+set default="0"
+set timeout=30
+
+menuentry "$GRUB_INSTALL_LABEL" {
+    linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
+    initrd /casper/initrd
+}
+
+menuentry "$GRUB_LIVEBOOT_LABEL without installing" {
+    linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
+    initrd /casper/initrd
+}
+
+menuentry "Check disc for defects" {
+    linux /casper/vmlinuz boot=casper integrity-check quiet splash ---
+    initrd /casper/initrd
+}
+
+grub_platform
+if [ "\$grub_platform" = "efi" ]; then
+menuentry 'UEFI Firmware Settings' {
+    fwsetup
+}
+
+menuentry "Test memory Memtest86+ (UEFI)" {
+    linux /install/memtest86+.efi
+}
+else
+menuentry "Test memory Memtest86+ (BIOS)" {
+    linux16 /install/memtest86+.bin
+}
+fi
+EOF
+
+    # generate manifest
+    dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee casper/filesystem.manifest
+
+    cp -v casper/filesystem.manifest casper/filesystem.manifest-desktop
+
+    for pkg in $TARGET_PACKAGE_REMOVE; do
+        sudo sed -i "/$pkg/d" casper/filesystem.manifest-desktop
+    done
+
+    # create diskdefines
+    cat <<EOF > README.diskdefines
+#define DISKNAME  ${GRUB_LIVEBOOT_LABEL}
+#define TYPE  binary
+#define TYPEbinary  1
+#define ARCH  amd64
+#define ARCHamd64  1
+#define DISKNUM  1
+#define DISKNUM1  1
+#define TOTALNUM  0
+#define TOTALNUM0  1
+EOF
+
+    # copy EFI loaders
+    cp /usr/lib/shim/shimx64.efi.signed.previous isolinux/bootx64.efi
+    cp /usr/lib/shim/mmx64.efi isolinux/mmx64.efi
+    cp /usr/lib/grub/x86_64-efi-signed/grubx64.efi.signed isolinux/grubx64.efi
+
+    # create a FAT16 UEFI boot disk image containing the EFI bootloaders
+    (
+        cd isolinux && \
+        dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
+        mkfs.vfat -F 16 efiboot.img && \
+        LC_CTYPE=C mmd -i efiboot.img efi efi/ubuntu efi/boot && \
+        LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/bootx64.efi && \
+        LC_CTYPE=C mcopy -i efiboot.img ./mmx64.efi ::efi/boot/mmx64.efi && \
+        LC_CTYPE=C mcopy -i efiboot.img ./grubx64.efi ::efi/boot/grubx64.efi && \
+        LC_CTYPE=C mcopy -i efiboot.img ./grub.cfg ::efi/ubuntu/grub.cfg
+    )
+
+    # create a grub BIOS image
+    grub-mkstandalone \
+      --format=i386-pc \
+      --output=isolinux/core.img \
+      --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls" \
+      --modules="linux16 linux normal iso9660 biosdisk search" \
+      --locales="" \
+      --fonts="" \
+      "boot/grub/grub.cfg=isolinux/grub.cfg"
+
+    # combine a bootable Grub cdboot.img
+    cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
+
+    # generate md5sum.txt
+    /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'isolinux' > md5sum.txt)"
+
+    popd # return initial directory
 }
 
 function finish_up() { 
@@ -202,4 +333,3 @@ for ((ii=$start_index; ii<$end_index; ii++)); do
 done
 
 echo "$0 - Initial build is done!"
-
