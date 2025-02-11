@@ -53,7 +53,7 @@ function check_host() {
 }
 
 function setup_host() {
-    echo "=====> running setup_host ..."
+    echo -e "\033[0;34m=====> running setup_host ...\033[0m"
 
    cat <<EOF > /etc/apt/sources.list
 deb $TARGET_UBUNTU_MIRROR $TARGET_UBUNTU_VERSION main restricted universe multiverse
@@ -95,7 +95,7 @@ function load_config() {
 
 
 function install_pkg() {
-    echo "=====> running install_pkg ... will take a long time ..."
+    echo -e "\033[0;34m=====> running install_pkg ... will take a long time ...\033[0m"
     apt-get -y upgrade
 
     # install live packages
@@ -167,7 +167,7 @@ EOF
 }
 
 function build_image() {
-    echo "=====> running build_image ..."
+    echo -e "\033[0;34m=====> running build_image ...\033[0m"
 
     rm -rf /image
 
@@ -286,7 +286,7 @@ EOF
 }
 
 function finish_up() { 
-    echo "=====> finish_up"
+    echo -e "\033[0;34m=====> finish_up\033[0m"
 
     # truncate machine id (why??)
     truncate -s 0 /etc/machine-id

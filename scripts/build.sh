@@ -97,19 +97,19 @@ function check_config() {
 }
 
 function setup_host() {
-    echo "=====> running setup_host ..."
+    echo -e "\033[0;34m=====> running setup_host ...\033[0m"
     sudo apt update
     sudo apt install -y debootstrap squashfs-tools xorriso
     sudo mkdir -p chroot
 }
 
 function debootstrap() {
-    echo "=====> running debootstrap ... will take a couple of minutes ..."
+    echo -e "\033[0;34m=====> running debootstrap ... will take a couple of minutes ...\033[0m"
     sudo debootstrap --arch=amd64 --variant=minbase $TARGET_UBUNTU_VERSION chroot $TARGET_UBUNTU_MIRROR
 }
 
 function run_chroot() {
-    echo "=====> running run_chroot ..."
+    echo -e "\033[0;34m=====> running run_chroot ...\033[0m"
 
     chroot_enter_setup
 
@@ -134,7 +134,7 @@ function run_chroot() {
 }
 
 function build_iso() {
-    echo "=====> running build_iso ..."
+    echo -e "\033[0;34m=====> running build_iso ...\033[0m"
 
     # move image artifacts
     sudo mv chroot/image .
