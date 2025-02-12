@@ -41,6 +41,7 @@ sudo rm -rf "$REPO_ROOT/scripts/image"
 
 echo -e "\033[0;34m=====> generating default_config.sh ...\033[0m"
 cat "$REPO_ROOT/configs/config.sh.tmpl" | envsubst | sudo tee "$REPO_ROOT/scripts/default_config.sh" >/dev/null
+source "$REPO_ROOT/scripts/default_config.sh"
 
 # run the main script and build the iso
 echo -e "\033[0;34m=====> starting to build iso ...\033[0m"
