@@ -1,0 +1,34 @@
+name: build iso
+
+on:
+  workflow_dispatch:
+  push:
+
+concurrency: 
+  group: ubuntu-iso-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    container: "ghcr.io/regolith-linux/ci-${{ matrix.distro }}:${{ matrix.codename }}-amd64"
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [ubuntu]
+        codename: [jammy, noble]
+        version: ["3.2"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build ISO
+        id: build-iso
+        run: ./build.sh configs/${{ matrix.version }}/${{ matrix.distro }}-${{ matrix.codename }}.conf
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: "regolith-${{ matrix.version }}-${{ matrix.distro }}-${{ matrix.codename }}"
+          path: "builds/*"
