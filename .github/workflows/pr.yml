@@ -11,9 +11,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    container:
-      image: "ghcr.io/regolith-linux/ci-${{ matrix.distro }}:${{ matrix.codename }}-amd64"
-      options: --privileged
+    # container:
+    #   image: "ghcr.io/regolith-linux/ci-${{ matrix.distro }}:${{ matrix.codename }}-amd64"
+    #   options: --privileged
 
     strategy:
       fail-fast: false
