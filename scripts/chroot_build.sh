@@ -150,16 +150,22 @@ function install_pkg() {
     # final touch
     dpkg-reconfigure locales
 
-# rc-manager=none
-
     # network manager
     cat <<EOF > /etc/NetworkManager/NetworkManager.conf
 [main]
+rc-manager=symlink
 plugins=ifupdown,keyfile
 dns=systemd-resolved
 
 [ifupdown]
 managed=false
+EOF
+
+    cat <<EOF > /etc/netplan/01-network-manager-all.yml
+# Let NetworkManager manage all devices on this system
+network:
+  version: 2
+  renderer: NetworkManager
 EOF
 
     dpkg-reconfigure network-manager
